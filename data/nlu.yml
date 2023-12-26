@@ -1,0 +1,321 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - ok
+    - alright
+    - that's ok
+    - agree
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - not
+    - don't agree
+    - wrong
+- intent: multiple_play
+  examples: |
+    - I want to make a multiple play
+    - A multiple one
+    - multiple
+    - Multiple
+    - multiple play
+    - Multiple play
+    - I want multiple
+    - I want a multiple play
+    - I want a Multiple play
+    - Lots
+    - more than one
+    - multiple one
+    - Multiple one
+    - multi
+- intent: single_play
+  examples: |
+    - I want to make a single play
+    - A single one
+    - single
+    - Single
+    - single play
+    - Single play
+    - I want single
+    - I want a single play
+    - I want a Single play
+    - One
+    - only one
+    - single one
+    - Single one
+    - just one
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: out_of_scope
+  examples: |
+    - What is the meaning of life?
+    - How can I make a pizza at home?
+    - Who is the president of the United States?
+    - Can you tell me a joke?
+    - What is your favorite movie?
+    - How do I fix my computer?
+    - Do you believe in aliens?
+    - What are the best places to visit in Italy?
+    - How can I learn a new language?
+    - What is the weather like today?
+    - What is 2 + 2?
+    - Who's the US President?
+    - do you have shoes
+    - what is your name
+    - are you real
+    - do you have a sister
+    - book a flight from milan to ny
+    - how far is the square
+    - give me the directions to time square
+- intent: login
+  examples: |
+    - How do I log in to my account?
+    - I would like to log in, please.
+    - Can you help me login?
+    - What are the steps to log in?
+    - What do I need to do to access my profile?
+    - Can you send me the link to login?
+    - What are the credentials to login?
+    - Can you authenticate me, please?
+    - Can you tell me how to login?
+    - Can you show me the login page?
+    - i want to login
+    - login
+    - log myself in
+    - log me in
+    - i have an account
+    - already have an account
+- intent: insert_username_login
+  examples: |
+    - [mail@mail.com](username)
+    - [name@mail.com](username)
+    - my username is [myusername](username)
+    - my mail is [mymail@gmail.com](username)
+    - my name is [wanna_be_better](username)
+    - this is my username: [mail@mail.com](username)
+    - [email@gmail.com](username)
+    - my username is [bettingFun]{"entity": "username", "value": "bettingFun"}
+    - my username is [Justuser](username)
+- intent: insert_username_registration
+  examples: |
+    - [john_doe](username)
+    - [test@mail.com](username)
+    - my username is [user99](username)
+    - my mail is [newuser00](username)
+    - my name is [bettinguser](username)
+    - this is my username: [alice_johnson](username)
+    - [test@gmail.com](username)
+- intent: info_account
+  examples: |
+    - can i check my info?
+    - can i see my account?
+    - i want to check my info account
+    - info account
+    - account
+    - show my info
+    - account menu
+    - would see my info
+    - can you show me the info of my account?
+- intent: show_username
+  examples: |
+    - my name
+    - what is my username?
+    - my username
+    - my account name
+    - i want to see my username
+    - username, please
+    - actual username
+    - show me my username
+    - what is my current name?
+    - what is the name of my account?
+    - show my username
+- intent: current_balance
+  examples: |
+    - balance
+    - current balance
+    - my balance
+    - my current balance
+    - i want to see my balance
+    - balance, please
+    - actual balance
+    - show me my balance
+    - what is my current balance?
+    - How much money do I have in my account?
+- intent: payment_method
+  examples: |
+    - payment
+    - payment method
+    - pay method
+    - my payment method
+    - my method of payment
+    - i want to see my payment method
+    - pay method, please
+    - show me my payment method
+    - what is my payment method?
+    - my payment
+    - payment, please
+    - How can I recharge my account?
+    - i want to see my method of charge
+    - can i see my payment method?
+    - can you show me my payment method?
+    - which payment method I use?
+- intent: new_play
+  examples: |
+    - i want to make a new play
+    - start a new play
+    - make a new bet
+    - wanna start another play
+    - can i make a new play?
+    - start a bet
+    - start betting
+    - i want to play
+    - want to bet
+- intent: registration
+  examples: |
+    - How do I register a new account?
+    - I would like to register myself, please.
+    - Can you help me register?
+    - What are the steps to register myself?
+    - What do I need to do to register an account?
+    - Can you send me the link to register?
+    - What are the modalities to register?
+    - Can you register me, please?
+    - Can you tell me how to register an account?
+    - Can you show me the registration page?
+    - hello i want to register
+    - registration
+    - register me
+    - make me registration
+    - new account registration
+    - hi can i register myself?
+    - i dont have an account
+    - i need to register
+    - still need to register
+- intent: periodic_report
+  examples: |
+    - report
+    - periodic report
+    - my periodic report
+    - my report
+    - i want to see my periodic report
+    - report, please
+    - show me my periodic report
+    - what is my periodic report?
+    - How much money I spent?
+    - i want to see my periodic budget
+    - my weekly budget
+    - i want to see my weekly report
+    - i want to see my monthly report
+    - my monthly budget
+- intent: crediting_method
+  examples: |
+    - crediting
+    - credit
+    - crediting method
+    - my crediting method
+    - my crediting
+    - i want to see my crediting method
+    - crediting, please
+    - show me my crediting method
+    - what is my crediting method?
+    - How can I withdraw my money?
+    - i want to see my method of withdrawal
+    - my method of crediting
+    - can i see my crediting method?
+    - can you show me my crediting method?
+    - which credit method I use?
+- intent: logout
+  examples: |
+    - logout
+    - log out
+    - i want to log out
+    - log me out
+    - exit my account
+    - end session
+    - can i logout?
+    - how can i logout?
+    - can you log me out?
+    - make me logout
+    - log me out please
+- intent: reload_account
+  examples: |
+    - i want to refill my account
+    - i want to recharge my account
+    - i want to reload my account
+    - reload account
+    - refill account
+    - recharge money
+    - recharge bill
+    - reload
+    - refill
+    - please reload account
+    - how can i refill?
+    - can i recharge my money?
+    - reload my account
+- intent: insert_reload_amount
+  examples: |
+    - [15](reload_amount) euros
+    - i want to refill [22](reload_amount)
+    - recharge [12](reload_amount)
+    - [10](reload_amount) please
+    - the amount is [5](reload_amount) euros
+    - [20](reload_amount)
+    - i want to recharge [20](reload_amount) euros
+    - add [10](reload_amount) to my account
+    - [10](reload_amount)
+    - [15](reload_amount)
+    - [5](reload_amount)
+    - [25](reload_amount)
+    - [25.50](reload_amount)
+    - [10.50](reload_amount)
+    - [ten](reload_amount)
+    - [five](reload_amount)
+    - [twenty](reload_amount)
+    - [fifteen](reload_amount)
+    - [22.50](reload_amount)
+    - [thirty](reload_amount)
+    - [one hundred](reload_amount)
+    - [five hundred](reload_amount) euros

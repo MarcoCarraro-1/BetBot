@@ -1,0 +1,293 @@
+version: "3.1"
+
+#things users say
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - multiple_play
+  - single_play
+  - bot_challenge
+  - out_of_scope
+  - login
+  - registration
+  - insert_username_login
+  - insert_username_registration
+  - show_username
+  - current_balance
+  - periodic_report
+  - weekly_report
+  - monthly_report
+  - payment_method
+  - crediting_method
+  - info_account
+  - new_play
+  - logout
+  - reload_account
+  - insert_reload_amount
+
+#info extracted from incoming text
+entities:
+  - username
+  - reload_amount
+
+#variables remembered over conversation
+#memory of the assistant
+slots:
+  username:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: username
+      intent: insert_username_login
+    - type: from_entity
+      entity: username
+      intent: insert_username_registration
+
+  authenticated:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+    - type: custom
+
+  balance:
+    type: float
+    influence_conversation: false
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  weekly_report:
+    type: float
+    influence_conversation: false
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  monthly_report:
+    type: float
+    influence_conversation: false
+    initial_value: 0.0
+    mappings:
+    - type: custom
+
+  payment_method:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: custom
+
+  crediting_method:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: custom
+
+  reload_amount:
+    type: any
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: reload_amount
+      intent: insert_reload_amount
+
+  valid_amount:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+    - type: custom
+
+#things bot can say to users
+responses:
+  utter_greet:
+  - text: "Hey, this is BetBot! What play do you want to make?"
+    buttons: 
+    - title: "Single"
+      payload: "/single_play"
+    - title: "Multiple"
+      payload: "/multiple_play"
+  - text: "Hi, betting fan! What play do you want to make?"
+    buttons: 
+    - title: "Single"
+      payload: "/single_play"
+    - title: "Multiple"
+      payload: "/multiple_play"
+
+  utter_ask_login:
+  - text: "To login enter your email or username here: "
+  - text: "If you already have an account you can log in by entering your email or username: "
+  - text: "Would you kindly provide me with your email or username?"
+
+  utter_restart:
+  - text: "Do you want to make a bet on today matches?"
+  - text: "Do you want to start with new plays?"
+  
+  utter_ask_choice:
+  - text: "What play do you want to make?"
+  - text: "What kind of ticket do you want to play?"
+
+  utter_confirm_single:
+  - text: "Do you want to make a single play. Is that correct?"
+
+  utter_confirm_multiple:
+  - text: "Do you want to make a multiple play. Is that correct?"
+
+  utter_confused_single:
+  - text: "So, you probably want to make a single play. Is that correct?"
+
+  utter_confused_multiple:
+  - text: "So, you probably want to make a multiple play. Is that correct?"
+
+  utter_display_matches:
+  - text: "These are the matches available:"
+  - text: "1. {match_1}"
+  - text: "2. {match_2}"
+  - text: "3. {match_3}"
+  - text: "4. {match_4}"
+  - text: "5. {match_5}"
+
+  utter_ask_single_choice:
+  - text: "Which game do you want to bet on?"
+
+  utter_ask_multiple_choice:
+  - text: "Which games do you want to bet on?"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye {username}!"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_out_of_scope:
+  - text: "Sorry, this is BetBot, I can't help you with this!"
+
+  utter_already_logged:
+  - text: "You are already logged in! Do you want to check your account info?"
+  - text: "Already logged! Did you mean 'check my account info'?"
+
+  utter_ask_info_account:
+  - text: "What account information do you wish to check?"
+    buttons: 
+    - title: "My username"
+      payload: "/show_username"
+    - title: "Current balance"
+      payload: "/current_balance"
+    - title: "Periodic report"
+      payload: "/periodic_report"
+    - title: "Payment method"
+      payload: "/payment_method"
+    - title: "Crediting method"
+      payload: "/crediting_method"
+    - title: "Reload Account"
+      payload: "/reload_account"
+    - title: "I want to make a new play!"
+      payload: "/new_play"
+    - title: "Logout"
+      payload: "/logout"
+
+  utter_show_username:
+  - text: "Your username is: {username}"
+  - text: "You are {username}"
+  - text: "The name of your account is {username}"
+
+  utter_ask_registration:
+  - text: "To register yourself enter a valid email or username here: "
+  - text: "If you don't have an account you can register by entering a valid email or username: "
+
+  utter_ask_exist_account:
+  - text: "Do you already have an account?"
+  - text: "Have you registered on this site yet?"
+
+  utter_show_balance:
+  - text: "Your actual balance is: {balance}€"
+  - text: "You actually have {balance}€ in your account"
+  - text: "The amount of your account is {balance}€"
+
+  utter_ask_period:
+  - text: "What period do you want to see your report from?" 
+    buttons: 
+    - title: "Weekly report"
+      payload: "/weekly_report"
+    - title: "Monthly report"
+      payload: "/monthly_report"
+
+  utter_show_weekly_report:
+  - text: "Your weekly report is: {weekly_report}€"
+  - text: "Your weekly budget is {weekly_report}€" 
+  - text: "The amount of your weekly budget is {weekly_report}€"
+  - text: "In this last week your performance has been {weekly_report}€"  
+
+  utter_show_monthly_report:
+  - text: "Your monthly report is: {monthly_report}€"
+  - text: "Your monthly budget is {monthly_report}€" 
+  - text: "The amount of your monthly budget is {monthly_report}€"
+  - text: "In this last month your performance has been {monthly_report}€"  
+
+  utter_show_payment_method:
+  - text: "Your payment method is {payment_method}"
+  - text: "You saved this payment method: {payment_method}"
+  - text: "You recharge your account through {payment_method}"
+
+  utter_show_crediting_method:
+  - text: "Your crediting method is {crediting_method}"
+  - text: "You saved this crediting method: {crediting_method}"
+  - text: "You can withdraw your money through {crediting_method}"
+
+  utter_ask_logout:
+  - text: "Do you really want to log out?"
+  - text: "Confirm that you want to log out?"
+
+  utter_not_logged:
+  - text: "You are not logged in! Do you want to login now?"
+  - text: "You haven't an open session. Do you want to login now?"
+
+  utter_ask_reload_amount:
+  - text: "How much do you want to reload the account by? (Please enter the number in digits)"
+  - text: "How much money do you want to perform the recharge? (Please enter the number in digits)"
+
+  utter_ask_reload_method:
+  - text: "Do you want to use your default payment method ({payment_method})?"
+  - text: "Is it ok to use this payment method: {payment_method}?"
+
+  utter_ask_invoice:
+  - text: "Do you need an invoice?"
+  - text: "Do you wish us to send you an invoice?"
+
+  utter_confirm_invoice:
+  - text: "Ok! We'll send you an invoice. Check your email!"
+  - text: "Check your email account, we have sent you an invoice!"
+
+  utter_ask_confirm_amount:
+  - text: "Do you confirm you want to reload {reload_amount} euros?"
+  - text: "You want to reload your balance by {reload_amount} euros, right?"
+
+  utter_ask_again_reload_amount:
+  - text: "I'm not sure I understand. Can you re-enter the sum in digits?"
+  - text: "Sorry I didn't understand! Can you repeat the sum in digits?"
+
+#application logic and extend bot capabilities
+#forms and actions
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+
+actions:
+- action_auth_user
+- action_logout_user
+- action_refresh_balance
+- action_check_amount

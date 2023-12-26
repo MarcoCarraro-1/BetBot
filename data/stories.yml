@@ -1,0 +1,568 @@
+version: "3.1"
+
+stories:
+
+- story: multiple choice correct
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: multiple_play
+  - action: utter_confirm_multiple
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_multiple
+
+- story: multiple choice wrong
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: multiple_play
+  - action: utter_confirm_multiple
+  - intent: deny
+  - action: utter_confused_single
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_single
+
+- story: single choice correct
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_single
+
+- story: single choice wrong
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: deny
+  - action: utter_confused_multiple
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_multiple
+
+- story: single play
+  steps:
+  - checkpoint: play_single
+  - action: utter_ask_single_choice
+
+- story: multiple play
+  steps:
+  - checkpoint: play_multiple
+  - action: utter_ask_multiple_choice
+
+- story: out of scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - action: utter_restart
+
+- story: restart after oos
+  steps:
+  - action: utter_restart
+  - intent: affirm
+  - action: utter_ask_choice
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_single
+
+- story: restart after oos 2
+  steps:
+  - action: utter_restart
+  - intent: affirm
+  - action: utter_ask_choice
+  - intent: multiple_play
+  - action: utter_confirm_multiple
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_multiple
+
+- story: restart after oos 3
+  steps:
+  - action: utter_restart
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: login already registered user not authenticated
+  steps:
+  - intent: login
+  - slot_was_set:                   #maybe remove
+    - authenticated: false          #maybe remove
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: mail@mail.com 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+  - intent: reload_account
+  - action: utter_ask_reload_amount
+
+
+- story: login not registered user not authenticated
+  steps:
+  - intent: login
+  - slot_was_set:                   #maybe remove
+    - authenticated: false          #maybe remove
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - intent: insert_username_registration #maybe login instead registration
+    entities:
+    - username: user99 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+  - intent: show_username
+  - action: utter_show_username
+  - action: utter_ask_info_account
+
+- story: login user already authenticated
+  steps:
+  - intent: login
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_already_logged
+  - intent: affirm
+  - action: utter_ask_info_account
+  - intent: current_balance
+  - action: utter_show_balance
+  - action: utter_ask_info_account
+
+- story: info account user already authenticated
+  steps:
+  - intent: info_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+  - intent: periodic_report
+  - action: utter_ask_period
+
+- story: info account user already authenticated 2
+  steps:
+  - intent: info_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+  - intent: show_username
+  - action: utter_show_username
+  - action: utter_ask_info_account
+  - intent: payment_method
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+
+- story: info account already registered user not authenticated
+  steps:
+  - intent: info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: mymail@gmail.com 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  #- intent: affirm
+  - action: utter_ask_info_account
+  - intent: payment_method
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+  - intent: crediting_method
+  - action: utter_show_crediting_method
+  - action: utter_ask_info_account
+
+- story: info account not registered user not authenticated
+  steps:
+  - intent: info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - intent: insert_username_registration #maybe login instead registration
+    entities:
+    - username: newuser00 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  #- intent: affirm
+  - action: utter_ask_info_account
+  - intent: payment_method
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+  - intent: logout
+  - action: utter_ask_logout
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- story: make new multiple play
+  steps:
+  - intent: new_play
+  - action: utter_ask_choice
+  - intent: multiple_play
+  - action: utter_confirm_multiple
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_multiple
+
+- story: make new single play
+  steps:  
+  - intent: new_play
+  - action: utter_ask_choice
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_single
+
+- story: make new mutliple play with wrong interpretation
+  steps:  
+  - intent: new_play
+  - action: utter_ask_choice
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: deny
+  - action: utter_confused_multiple
+  - intent: affirm
+  - action: utter_display_matches
+  - checkpoint: play_multiple
+
+- story: auth user asks for username
+  steps:
+  - intent: show_username
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_username
+  - action: utter_ask_info_account
+  - intent: reload_account
+  - action: utter_ask_reload_amount
+
+- story: non auth registered user asks for username
+  steps:
+  - intent: show_username
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: email@gmail.com 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: non auth non registered user asks for username
+  steps:
+  - intent: show_username
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - intent: insert_username_registration #maybe login instead registration
+    entities:
+    - username: test@mail.com 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: user ask registration after ask account exist
+  steps:
+  - intent: login
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: registration
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - intent: insert_username_registration #maybe login instead registration
+    entities:
+    - username: randomname 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: auth user asks for balance
+  steps:
+  - intent: current_balance
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_balance
+  - action: utter_ask_info_account
+
+- story: non auth registered user asks for balance
+  steps:
+  - intent: current_balance
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: myusername 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: non auth non registered user asks for balance
+  steps:
+  - intent: current_balance
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - intent: insert_username_registration #maybe login instead registration
+    entities:
+    - username: bettinguser 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: new user wants to register
+  steps:
+  - intent: registration
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_registration
+  - intent: insert_username_registration
+    entities:
+    - username: bettingfun
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: user ask for weekly report
+  steps:
+  - intent: weekly_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_weekly_report
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- story: user ask for monthly report
+  steps:
+  - intent: monthly_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_monthly_report
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- story: user ask for periodic report
+  steps:
+  - intent: periodic_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_period
+
+- story: auth user ask for payment method
+  steps:
+  - intent: payment_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+
+- story: non auth user ask for payment method
+  steps:
+  - intent: payment_method
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- story: auth user ask for crediting method
+  steps:
+  - intent: crediting_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_crediting_method
+  - action: utter_ask_info_account
+
+- story: non auth user ask for crediting method
+  steps:
+  - intent: crediting_method
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- story: auth user ask for logout
+  steps:
+  - intent: logout
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_logout
+  - intent: affirm
+  - action: action_logout_user
+
+- story: non auth user ask for logout
+  steps:
+  - intent: logout
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+
+- story: non auth user ask for logout and deny
+  steps:
+  - intent: logout
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+  - intent: deny
+  - action: utter_restart
+
+- story: auth user ask for reload
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '15' 
+  - action: action_check_amount
+  - slot_was_set: 
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: affirm
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_amount: '15'
+  - action: utter_ask_info_account
+
+- story: non auth user ask for reload
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+
+- story: auth user ask for reload and no invoice
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10' 
+  #- slot_was_set:
+  #  - reload_amount: 'ten'
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: affirm
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_amount: '10'
+  - action: utter_ask_info_account
+
+- story: auth user ask for reload but wrong amount
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: 'ten' 
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: false
+  - action: utter_ask_again_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10' 
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: affirm
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_amount: '10'
+  - action: utter_ask_info_account
+
+- story: auth user ask for reload and change his mind
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10' 
+  #- slot_was_set:
+  #  - reload_amount: 'ten'
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: deny
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '20'
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: affirm
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_amount: '10'
+  - action: utter_ask_info_account

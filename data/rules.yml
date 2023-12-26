@@ -1,0 +1,298 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Request to login
+  steps:
+  - intent: login
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_already_logged
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: Authenticate user after username insertion
+  steps:
+  - intent: insert_username_login
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- rule: show info account
+  steps:
+  - intent: info_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: wrong username intent, ask info
+  steps:
+  - intent: insert_username_login
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- rule: always ask again info if user ask own username
+  steps:
+  - intent: show_username
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_username
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: always propose multiple if deny single
+  steps:
+  - action: utter_confirm_single
+  - intent: deny
+  - action: utter_confused_multiple
+
+- rule: always propose single if deny multiple
+  steps:
+  - action: utter_confirm_multiple
+  - intent: deny
+  - action: utter_confused_single
+
+- rule: show info account if user already logged say 'yes'
+  steps:
+  - action: utter_already_logged
+  - intent: affirm
+  - action: utter_ask_info_account
+
+- rule: restart if user already logged say 'no'
+  steps:
+  - action: utter_already_logged
+  - intent: deny
+  - action: utter_restart
+
+- rule: Request username to registration
+  steps:
+  - intent: registration
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_already_logged
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_registration
+
+- rule: Authenticate user after registration
+  steps:
+  - intent: insert_username_registration
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- rule: Login if exists an account
+  steps:
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+
+- rule: Registration if does not exist an account
+  steps:
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+
+- rule: always ask again info if user ask own balance
+  steps:
+  - intent: current_balance
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_balance
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: always ask period if user ask periodic report
+  steps:
+  - intent: periodic_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_period
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  
+- rule: always ask again info of user ask weekly report  
+  steps:
+  - intent: weekly_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_weekly_report
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: always ask again info of user ask monthly report  
+  steps:
+  - intent: monthly_report
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_monthly_report
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: always ask again info of user ask payment method  
+  steps:
+  - intent: payment_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: always ask again info of user ask crediting method  
+  steps:
+  - intent: crediting_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_crediting_method
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+
+- rule: auth user ask for logout
+  steps:
+  - intent: logout
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_logout
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user confirm logout
+  steps:
+  - action: utter_ask_logout
+  - intent: affirm
+  - action: action_logout_user
+
+- rule: user deny logout
+  steps:
+  - action: utter_ask_logout
+  - intent: deny
+  - action: utter_ask_info_account
+
+- rule: user ask for reload, bot ask amount
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user insert reload amount, bot ask confirm
+  steps:
+  - intent: insert_reload_amount
+  - slot_was_set:
+    - authenticated: true
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - slot_was_set:
+    - valid_amount: false 
+  - action: utter_ask_again_reload_amount
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user re enter the amount in digits
+  steps:
+  - action: utter_ask_again_reload_amount
+  - intent: insert_reload_amount
+  - slot_was_set:
+    - valid_amount: true 
+  - action: utter_ask_confirm_amount
+
+- rule: user confirm reload amount, bot ask method
+  steps:
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_method
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user not confirm reload amount, bot ask amount again
+  steps:
+  - action: utter_ask_confirm_amount
+  - intent: deny
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user confirm reload method, bot ask invoice
+  steps:
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_invoice
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user affirm invoice, bot confirm reload
+  steps:
+  - action: utter_ask_invoice
+  - intent: affirm
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user deny invoice, bot confirm reload
+  steps:
+  - action: utter_ask_invoice
+  - intent: deny
+  - slot_was_set:
+    - authenticated: true
+  - action: action_refresh_balance
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: user doesn't want to restart, say goodbye
+  steps:
+  - action: utter_restart
+  - intent: deny
+  - action: utter_goodbye
