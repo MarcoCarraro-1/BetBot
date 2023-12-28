@@ -250,6 +250,28 @@ nlu:
     - i want to see my weekly report
     - i want to see my monthly report
     - my monthly budget
+- intent: weekly_report
+  examples: |
+    - weekly report
+    - my weekly report
+    - i want to see my weekly report
+    - weekly report, please
+    - show me my weekly report
+    - what is my weekly report?
+    - How much money I spent last week?
+    - i want to see my weekly budget
+    - my weekly budget
+- intent: monthly_report
+  examples: |
+    - monthly report
+    - my monthly report
+    - i want to see my monthly report
+    - monthly report, please
+    - show me my monthly report
+    - what is my monthly report?
+    - How much money I spent last month?
+    - i want to see my monthly budget
+    - my monthly budget
 - intent: crediting_method
   examples: |
     - crediting
