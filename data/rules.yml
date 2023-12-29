@@ -296,3 +296,9 @@ rules:
   - action: utter_restart
   - intent: deny
   - action: utter_goodbye
+
+- rule: user deny payment method
+  steps:
+  - action: utter_ask_reload_method
+  - intent: deny
+  - action: utter_unique_payment_method

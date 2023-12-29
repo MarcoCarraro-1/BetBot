@@ -278,6 +278,10 @@ responses:
   - text: "I'm not sure I understand. Can you re-enter the sum in digits?"
   - text: "Sorry I didn't understand! Can you repeat the sum in digits?"
 
+  utter_unique_payment_method:
+  - text: "You only have this payment method stored, do you want to continue?"
+  - text: "There are no other payment methods for your account. Do you wish to proceed with this?"
+
 #application logic and extend bot capabilities
 #forms and actions
 

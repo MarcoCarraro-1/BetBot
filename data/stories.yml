@@ -566,3 +566,49 @@ stories:
   - slot_was_set:
     - reload_amount: '10'
   - action: utter_ask_info_account
+
+- story: auth user ask for reload but deny method
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10' 
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: deny
+  - action: utter_unique_payment_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: affirm
+  - action: utter_confirm_invoice
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_amount: '10'
+  - action: utter_ask_info_account
+
+- story: auth user ask for reload but deny method and deny continue
+  steps:
+  - intent: reload_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10' 
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: deny
+  - action: utter_unique_payment_method
+  - intent: deny
+  - action: utter_ask_info_account
