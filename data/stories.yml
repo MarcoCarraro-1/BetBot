@@ -612,3 +612,15 @@ stories:
   - action: utter_unique_payment_method
   - intent: deny
   - action: utter_ask_info_account
+
+- story: auth user ask for check ticket
+  steps:
+  - intent: check_ticket
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_ticket_id
+  - intent: insert_ticket_id
+    entities:
+    - ticket_id: 'absy3463' 
+  - action: utter_result_ticket
+  - action: utter_ask_info_account

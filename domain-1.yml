@@ -2,6 +2,7 @@ version: '3.1'
 intents:
 - affirm
 - bot_challenge
+- check_ticket
 - crediting_method
 - current_balance
 - deny
@@ -9,6 +10,7 @@ intents:
 - greet
 - info_account
 - insert_reload_amount
+- insert_ticket_id
 - insert_username_login
 - insert_username_registration
 - login
@@ -25,6 +27,7 @@ intents:
 - single_play
 - weekly_report
 entities:
+- ticket_id
 - username
 - reload_amount
 slots:
@@ -82,6 +85,22 @@ slots:
     - type: from_entity
       entity: reload_amount
       intent: insert_reload_amount
+  valid_amount:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+    - type: custom
+  ticket_id:
+    type: any
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: ticket_id
+      intent: check_ticket
+    - type: from_entity
+      entity: ticket_id
+      intent: insert_ticket_id
 responses:
   utter_greet:
   - text: Hey, this is BetBot! What play do you want to make?
@@ -153,6 +172,8 @@ responses:
       payload: /crediting_method
     - title: Reload Account
       payload: /reload_account
+    - title: Check a ticket
+      payload: /check_ticket
     - title: I want to make a new play!
       payload: /new_play
     - title: Logout
@@ -214,14 +235,32 @@ responses:
   utter_confirm_invoice:
   - text: Ok! We'll send you an invoice. Check your email!
   - text: Check your email account, we have sent you an invoice!
+  utter_ask_confirm_amount:
+  - text: Do you confirm you want to reload {reload_amount} euros?
+  - text: You want to reload your balance by {reload_amount} euros, right?
+  utter_ask_again_reload_amount:
+  - text: I'm not sure I understand. Can you re-enter the sum in digits?
+  - text: Sorry I didn't understand! Can you repeat the sum in digits?
+  utter_unique_payment_method:
+  - text: You only have this payment method stored, do you want to continue?
+  - text: There are no other payment methods for your account. Do you wish to proceed with this?
+  utter_ask_ticket_id:
+  - text: "Ok! Let's check if you won. Please enter your ticket number here:"
+  - text: 'Please enter your ticket number to check if it is a winner:'
+  utter_result_ticket:
+  - text: Congratulations! The ticket {ticket_id} is a winner!
+  - text: Unlucky! This time you didn't win...
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 actions:
-- action_auth_user
 - utter_ask_exist_account
 - utter_ask_info_account
+- action_auth_user
+- utter_ask_ticket_id
+- utter_not_logged
+- utter_result_ticket
 - utter_ask_login
 - action_logout_user
 - action_refresh_balance
-- action_default_fallback
+- action_check_amount

@@ -302,3 +302,24 @@ rules:
   - action: utter_ask_reload_method
   - intent: deny
   - action: utter_unique_payment_method
+
+- rule: auth user ask for check ticket
+  steps:
+  - intent: check_ticket
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_ticket_id
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+
+- rule: auth user insert ticket id
+  steps:
+  - intent: insert_ticket_id
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_result_ticket
+  - action: utter_ask_info_account
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged

@@ -85,3 +85,36 @@ stories:
     - username: bettingFun
   - action: action_auth_user
   - action: utter_ask_info_account
+
+- story: interactive_story_3
+  steps:
+  - intent: check_ticket
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: BaffoSelvadego
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 0.0
+  - slot_was_set:
+    - weekly_report: 0.0
+  - slot_was_set:
+    - monthly_report: 0.0
+  - slot_was_set:
+    - payment_method: null
+  - slot_was_set:
+    - crediting_method: null
+  - action: utter_ask_info_account
+  - intent: check_ticket
+  - action: utter_ask_ticket_id
+  - intent: insert_ticket_id
+    entities:
+    - ticket_id: dakhas73746
+  - action: utter_result_ticket
+  - action: utter_ask_info_account

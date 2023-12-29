@@ -137,8 +137,9 @@ nlu:
     - my name is [wanna_be_better](username)
     - this is my username: [mail@mail.com](username)
     - [email@gmail.com](username)
-    - my username is [bettingFun]{"entity": "username", "value": "bettingFun"}
+    - my username is [bettingFun](username)
     - my username is [Justuser](username)
+    - my username is [BaffoSelvadego](username)
 - intent: insert_username_registration
   examples: |
     - [john_doe](username)
@@ -341,3 +342,29 @@ nlu:
     - [thirty](reload_amount)
     - [one hundred](reload_amount)
     - [five hundred](reload_amount) euros
+- intent: check_ticket
+  examples: |
+    - i want to check a ticket
+    - is my ticket winner?
+    - I want to check a ticket
+    - check my ticket
+    - did I win?
+    - coupon check
+    - can you tell me if a ticket is a winning one?
+    - is the [0123456](ticket_id) coupon winning?
+    - check ticket [dsfhbi2452](ticket_id)
+    - the number of my ticket is [53287ha2yr](ticket_id)
+    - hello check my ticket
+- intent: insert_ticket_id
+  examples: |
+    - [2357249](ticket_id)
+    - [afakjnsa34](ticket_id)
+    - [132918dsa](ticket_id)
+    - my ticket number is [4378723ah](ticket_id)
+    - my ticket is [afhd634](ticket_id)
+    - my number is [31468ada](ticket_id)
+    - this is my ticket: [adas678kfg](ticket_id)
+    - [dsa7632ke](ticket_id)
+    - my ticket is [aewzcvnb](ticket_id)
+    - my ticket number is [18452](ticket_id)
+    - [dakhas73746](ticket_id)
