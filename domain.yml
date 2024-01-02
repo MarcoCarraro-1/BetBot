@@ -233,27 +233,16 @@ responses:
   - text: "Already logged! Did you mean 'check my account info'?"
 
   utter_ask_info_account:
-  - text: "What account information do you wish to check?"
-    buttons: 
-    - title: "My username"
-      payload: "/show_username"
-    - title: "Current balance"
-      payload: "/current_balance"
-    - title: "Periodic report"
-      payload: "/periodic_report"
-    - title: "Payment method"
-      payload: "/payment_method"
-    - title: "Crediting method"
-      payload: "/crediting_method"
-    - title: "Reload Account"
-      payload: "/reload_account"
-    - title: "Check a ticket"
-      payload: "/check_ticket"
-    - title: "I want to make a new play!"
-      payload: "/new_play"
-    - title: "Logout"
-      payload: "/logout"
-
+  - text: "What account information do you wish to check?\n
+          My username (/show_username);\n
+          Current balance (/current_balance);\n
+          Periodic report (/periodic_report);\n
+          Payment method (/payment_method);\n
+          Crediting method (/crediting_method);\n
+          Reload account (/reload_account);\n
+          Check a ticket (/check_ticket);\n
+          Make a new play! (/new_play);\n
+          Logout (/logout)"
 
   utter_show_username:
   - text: "Your username is: {username}"
