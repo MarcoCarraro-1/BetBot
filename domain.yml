@@ -20,7 +20,7 @@ intents:
   - weekly_report
   - monthly_report
   - payment_method
-  - crediting_method
+  - crediting_method 
   - info_account
   - new_play
   - logout
@@ -32,6 +32,8 @@ intents:
   - insert_display_events
   - display_odds
   - insert_display_odds
+  - select_event
+  - select_outcome
 
 #info extracted from incoming text
 entities:
@@ -133,6 +135,7 @@ slots:
     mappings:
     - type: from_entity
       entity: event
+      intent: select_event
   sport:
     type: text
     influence_conversation: false
@@ -140,6 +143,7 @@ slots:
     mappings:
     - type: from_entity
       entity: sport
+      intent: insert_display_events
   date:
     type: any
     mappings:
@@ -152,6 +156,7 @@ slots:
     mappings:
     - type: from_entity
       entity: outcome
+      intent: select_outcome
 
 #things bot can say to users
 responses:
@@ -356,6 +361,11 @@ responses:
   - text: "what is your prediction on {event}?"
   - text: "How do you think will end?"
   - text: "On whom do you want to bet?"
+
+  utter_list_sports:
+  - text: "These are the sports available: football, basketball and tennis."
+  - text: "The sports you can play on are: football, basketball and tennis."
+  - text: "You can choose from these sports: football, basketball, tennis."
 #application logic and extend bot capabilities
 #forms and actions
 

@@ -383,18 +383,6 @@ nlu:
     - can you show me some sport events options
     - can you show me some events options
     - can you show me some matches options
-    - what [football](sport) matches do you have?
-    - what [basketball](sport) matches do you have?
-    - what [tennis](sport) matches do you have?
-    - what [rugby](sport) matches do you have?
-    - list some [football] events
-    - list some [basket] events
-    - list some [tennis] events
-    - list some [judo] events
-    - show me the [football] matches
-    - show me the [basketball] matches
-    - show me the [tennis] matches
-    - show me the [boxing] matches
 
 - intent: insert_display_events
   examples: |
@@ -415,6 +403,10 @@ nlu:
     - [soccer](sport)
     - [basketball](sport)
     - [tennis](sport)
+    - show me the [football](sport) matches
+    - show me the [basketball](sport) matches
+    - show me the [tennis](sport) matches
+    - show me the [boxing](sport) matches
 
 - intent: select_event
   examples: |
@@ -461,6 +453,6 @@ nlu:
     - can you tell me the odds?
     - how much will pay Roma's win?
     - how much will pay team's win?
-    - odds
+    - odds 
     - tell me the odds
     - what are the odds of
