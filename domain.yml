@@ -20,7 +20,7 @@ intents:
   - weekly_report
   - monthly_report
   - payment_method
-  - crediting_method
+  - crediting_method 
   - info_account
   - new_play
   - logout
@@ -138,7 +138,7 @@ slots:
     mappings:
     - type: from_entity
       entity: event
-  
+      intent: select_event
   sport:
     type: text
     influence_conversation: false
@@ -146,7 +146,7 @@ slots:
     mappings:
     - type: from_entity
       entity: sport
-  
+      intent: insert_display_events
   date:
     type: any
     mappings:
@@ -160,7 +160,8 @@ slots:
     mappings:
     - type: from_entity
       entity: outcome
-  
+      intent: select_outcome
+
   bets:
     type: list
     influence_conversation: false
@@ -251,27 +252,16 @@ responses:
   - text: "Already logged! Did you mean 'check my account info'?"
 
   utter_ask_info_account:
-  - text: "What account information do you wish to check?"
-    buttons: 
-    - title: "My username"
-      payload: "/show_username"
-    - title: "Current balance"
-      payload: "/current_balance"
-    - title: "Periodic report"
-      payload: "/periodic_report"
-    - title: "Payment method"
-      payload: "/payment_method"
-    - title: "Crediting method"
-      payload: "/crediting_method"
-    - title: "Reload Account"
-      payload: "/reload_account"
-    - title: "Check a ticket"
-      payload: "/check_ticket"
-    - title: "I want to make a new play!"
-      payload: "/new_play"
-    - title: "Logout"
-      payload: "/logout"
-
+  - text: "What account information do you wish to check?\n
+          My username (/show_username);\n
+          Current balance (/current_balance);\n
+          Periodic report (/periodic_report);\n
+          Payment method (/payment_method);\n
+          Crediting method (/crediting_method);\n
+          Reload account (/reload_account);\n
+          Check a ticket (/check_ticket);\n
+          Make a new play! (/new_play);\n
+          Logout (/logout)"
 
   utter_show_username:
   - text: "Your username is: {username}"
@@ -390,6 +380,12 @@ responses:
   utter_continue_betting:
   - text: "Do you want to add another play?"
   - text: "Would you like to play on another event?"
+
+  utter_list_sports:
+  - text: "These are the sports available: football, basketball and tennis."
+  - text: "The sports you can play on are: football, basketball and tennis."
+  - text: "You can choose from these sports: football, basketball, tennis."
+
 #application logic and extend bot capabilities
 #forms and actions
 

@@ -335,3 +335,21 @@ rules:
   - action: utter_continue_betting
   - intent: deny
   - action: utter_ask_bet_amount
+
+- rule: user ask to see the available events, bot ask sport
+  steps:
+  - intent: display_events
+  - action: utter_list_sports
+  - action: utter_ask_sport
+
+- rule: user ask to see specific sport events, bot ask event
+  steps:
+  - intent: insert_display_events
+  - action: action_fetch_events
+  - action: utter_ask_event
+
+- rule: user select an event, bot ask outcome
+  steps:
+  - intent: select_event
+  - action: action_fetch_odds
+  - action: utter_ask_outcome

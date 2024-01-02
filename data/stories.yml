@@ -628,12 +628,13 @@ stories:
 - story: user ask to see the available events
   steps:
   - intent: display_events
+  - action: utter_list_sports
   - action: utter_ask_sport
   - intent: insert_display_events
     entities:
     - sport: football 
   - action: action_fetch_events
-  - action: utter_ask_info_account
+  - action: utter_ask_event
 
 
 - story: user ask to see the odds of a selected event
@@ -644,8 +645,6 @@ stories:
     entities:
     - event: 'Djokovic-Nadal'
   - action: action_fetch_odds
-  - action: utter_ask_info_account
-
 
 - story: User Wants to Place Multiple Bets
   steps:
@@ -681,3 +680,4 @@ stories:
     - bet_amount: 10
   - action: action_set_play
   - action: utter_bets_summary
+
