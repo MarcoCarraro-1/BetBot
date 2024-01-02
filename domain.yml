@@ -28,12 +28,20 @@ intents:
   - insert_reload_amount
   - check_ticket
   - insert_ticket_id
+  - display_events
+  - insert_display_events
+  - display_odds
+  - insert_display_odds
 
 #info extracted from incoming text
 entities:
   - username
   - reload_amount
   - ticket_id
+  - sport
+  - date
+  - event
+  - outcome
 
 #variables remembered over conversation
 #memory of the assistant
@@ -117,6 +125,33 @@ slots:
     - type: from_entity
       entity: ticket_id
       intent: insert_ticket_id
+  
+  event:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: event
+  sport:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: sport
+  date:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: date
+  outcome:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: outcome
 
 #things bot can say to users
 responses:
@@ -306,6 +341,21 @@ responses:
   utter_result_ticket:
   - text: "Congratulations! The ticket is a winner!"
   - text: "Unlucky! This time you didn't win..."
+
+  utter_ask_sport:
+  - text: "Please insert the sport you are interested in"
+  - text: "Which sport do you want me to display the events of?"
+  - text: "Specify the sport please"
+
+  utter_ask_event:
+  - text: "Please insert the event you are interested in"
+  - text: "On which event do you want to bet?"
+  - text: "Specify the event you want to bet on please"
+
+  utter_ask_outcome:
+  - text: "what is your prediction on {event}?"
+  - text: "How do you think will end?"
+  - text: "On whom do you want to bet?"
 #application logic and extend bot capabilities
 #forms and actions
 
@@ -319,3 +369,6 @@ actions:
 - action_logout_user
 - action_refresh_balance
 - action_check_amount
+- action_fetch_events
+- action_set_single_play
+- action_fetch_odds

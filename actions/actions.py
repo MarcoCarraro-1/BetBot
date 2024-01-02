@@ -24,6 +24,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import random
+import json
+import random
 import word2number
 from word2number import w2n
 #
@@ -150,3 +152,116 @@ class ActionCheckAmount(Action):
                     return[SlotSet("valid_amount", False)]
         except:
             return[SlotSet("valid_amount", False)]
+
+
+class ActionFetchData(Action):
+    def name(self) -> Text:
+        return "action_fetch_events"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Open our database
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        # Extract entities from the tracker
+        sport_entity = tracker.get_slot("sport")
+
+        # Debug prints
+        print("Sport Entity:", sport_entity)
+
+        # Fetch selected matches
+        selected_matches = []
+        for selected_match in data.get("sport_event", []):
+            if selected_match["sport"] == sport_entity:
+                selected_matches.append(selected_match)
+        if selected_matches:
+            dispatcher.utter_message(f"Matches {sport_entity} are the following:")
+            for selected_match in selected_matches:
+                dispatcher.utter_message(f"{selected_match['name']} on date: {selected_match['date']}")
+        else:
+            dispatcher.utter_message("No {sport_entity} matches found!")
+
+        return []
+
+
+class ActionSetSingle(Action):
+    def name(self) -> Text:
+        return "action_set_single_play"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Assuming your JSON file is named 'database.json'
+
+        # Extract entities from the tracker
+        user_entity = tracker.get_slot("username")
+        event_entity = tracker.get_slot("event")
+        sport_entity = tracker.get_slot("sport")
+        outcome_entity = tracker.get_slot("outcome")
+
+        # Debug prints
+        print("Event Entity:", event_entity)
+        print("Sport Entity:", sport_entity)
+        print("Outcome Entity:", outcome_entity)
+
+        winning_status = False
+        ticket_number =  str(random.randint(100000, 999999))
+        # TO-DO check if the random number created already exists, if so regenerate it
+
+        # Create a new ticket
+        new_ticket = {
+            "number": ticket_number,
+            "username": user_entity,
+            "type": "single",
+            "events": [event_entity],
+            "outcomes": [outcome_entity],
+            "bet_amount": 10,
+            "potential_win": 16.5,
+            "win": winning_status
+        }
+
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        # Add a new ticket to the "ticket" entity
+        data["ticket"].append(new_ticket)
+
+        # Save the updated data back to database.json
+        with open('./data/data.json', 'w') as file:
+            json.dump(data, file, indent=2)
+
+        dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!")
+
+
+        return []
+
+
+class ActionFetchOdds(Action):
+    def name(self) -> Text:
+        return "action_fetch_odds"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Read our db
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        # Extract entities from the tracker
+        event_entity = tracker.get_slot("event")
+
+        # Debug prints
+        print("Event Entity:", event_entity)
+
+
+        # Giving the odds of an event to the user
+
+        selected_event = next((event for event in data.get("sport_event", []) if event["name"] == event_entity), None)
+        if selected_event:
+            dispatcher.utter_message(f"The odds for {event_entity} are the following:")
+            if selected_event['sport'] == 'football':
+                dispatcher.utter_message(f"Home: {selected_event['home']}\nDraw: {selected_event['draw']}\nAway: {selected_event['away']}")
+            #elif selected_event['sport'] == 'tennis':
+            else:
+                dispatcher.utter_message(f"Home: {selected_event['home']}\nAway: {selected_event['away']}")
+        else:
+            dispatcher.utter_message("Event not found")
+
+
+        return []

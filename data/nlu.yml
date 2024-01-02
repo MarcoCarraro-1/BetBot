@@ -368,3 +368,99 @@ nlu:
     - my ticket is [aewzcvnb](ticket_id)
     - my ticket number is [18452](ticket_id)
     - [dakhas73746](ticket_id)
+
+- intent: display_events
+  examples: |
+    - what sport events do you have?
+    - what matches do you have?
+    - what events do you have?
+    - list some sport events
+    - list some events
+    - list some matches
+    - can you name some sport events please?
+    - can you name some events please?
+    - can you name some matches please?
+    - can you show me some sport events options
+    - can you show me some events options
+    - can you show me some matches options
+    - what [football](sport) matches do you have?
+    - what [basketball](sport) matches do you have?
+    - what [tennis](sport) matches do you have?
+    - what [rugby](sport) matches do you have?
+    - list some [football] events
+    - list some [basket] events
+    - list some [tennis] events
+    - list some [judo] events
+    - show me the [football] matches
+    - show me the [basketball] matches
+    - show me the [tennis] matches
+    - show me the [boxing] matches
+
+- intent: insert_display_events
+  examples: |
+    - what [football](sport) matches do you have?
+    - what [tennis](sport) matches do you have?
+    - what [basket](sport) matches do you have?
+    - what [basketball](sport) matches do you have?
+    - what [soccer](sport) matches do you have?
+    - list some [football](sport) events
+    - list some [tennis](sport) events
+    - list some [basket](sport) events
+    - list some [rugby](sport) events
+    - [football](sport) matches
+    - [soccer](sport) matches
+    - [basket](sport) matches
+    - [tennis](sport) matches
+    - [football](sport)
+    - [soccer](sport)
+    - [basketball](sport)
+    - [tennis](sport)
+
+- intent: select_event
+  examples: |
+    - [Fiorentina-Milan](event)
+    - [Inter-Roma](event)
+    - [Djokovic-Nadal](event)
+    - [Napoli-Lecce](event)
+    - i want to bet on [Fiorentina-Milan](event)
+    - I want to bet on [Inter-Roma](event)
+    - I want to bet on [Djokovic-Nadal](event)
+    - i want to bet on [Napoli-Lecce](event)
+    - i choose [Fiorentina-Milan](event)
+    - I choose [Inter-Roma](event)
+    - I chose [Djokovic-Nadal](event)
+    - I choose [Napoli-Lecce](event)
+    - Select [Fiorentina-Milan](event)
+    - Take [Inter-Roma](event)
+    - Bet on [Djokovic-Nadal](event)
+    - Interested in [Napoli-Lecce](event)
+    - I'm interested in [Fiorentina-Milan](event)
+
+- intent: select_outcome
+  examples: |
+    - [1](outcome)
+    - [2](outcome)
+    - [X](outcome)
+    - [x](outcome)
+    - [home](outcome)
+    - [away](outcome)
+    - [draw](outcome)
+    - [Home](outcome)
+    - I think the [home](outcome) team is gonna win
+    - I think the [home](outcome) team will win
+    - [home](outcome) will win
+    - [away](outcome) will win
+    - They will [draw](outcome)
+    - They are gonna [draw](outcome)
+    - [home] will win
+    - [away] will win
+
+- intent: display_odds
+  examples: |
+    - what are the odds?
+    - can you tell me the odds?
+    - how much will pay Roma's win?
+    - how much will pay team's win?
+    - odds
+    - tell me the odds
+    - what are the odds of

@@ -1,0 +1,87 @@
+{
+    "sport_event": [
+        {
+            "id": 0,
+            "name": "Inter-Roma",
+            "sport": "football",
+            "home": 1.65,
+            "away": 4,
+            "draw": 2.9,
+            "date": "22/12/2023"
+        },
+        {
+            "id": 1,
+            "name": "Napoli-Lecce",
+            "sport": "football",
+            "home": 1.2,
+            "away": 5.75,
+            "draw": 3.42,
+            "date": "23/12/2023"
+        },
+        {
+            "id": 2,
+            "name": "Fiorentina-Milan",
+            "sport": "football",
+            "home": 2.95,
+            "away": 3.8,
+            "draw": 2.7,
+            "date": "22/12/2023"
+        },
+        {
+            "id": 3,
+            "name": "Djokovic-Nadal",
+            "sport": "tennis",
+            "home": 1.65,
+            "away": 2.3,
+            "date": "22/12/2023"
+        }
+    ],
+    "user": [
+        {
+            "id": 0,
+            "name": "Decebal",
+            "surname": "Cernei",
+            "fiscal_code": "CRNDBL99E15Z140J",
+            "username": "dec",
+            "password": "password",
+            "balance": 20,
+            "weekly_recap": -21,
+            "monthly_recap": 5,
+            "favorite_payment_method": "PayPal"
+        },
+        {
+            "id": 1,
+            "name": "Marco",
+            "surname": "Carraro",
+            "fiscal_code": "CRMRC99E20Z180M",
+            "username": "marco",
+            "password": "password",
+            "balance": 80,
+            "weekly_recap": 52,
+            "monthly_recap": 27,
+            "favorite_payment_method": "Debit Card"
+        }
+    ],
+    "ticket": [
+        {
+            "number": 553248,
+            "username": "dec",
+            "type": "single",
+            "events": ["Fiorentina-Milan"],
+            "outcomes": ["draw"],
+            "bet_amount": 5,
+            "potential_win": 11.4,
+            "win": false
+        },
+        {
+            "number": 724941,
+            "username": "dec",
+            "type": "single",
+            "events": ["Djokovic-Nadal"],
+            "outcomes": ["home"],
+            "bet_amount": 10,
+            "potential_win": 16.5,
+            "win": true
+        }
+    ]
+}
