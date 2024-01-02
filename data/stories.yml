@@ -642,6 +642,42 @@ stories:
   - action: utter_ask_event
   - intent: select_event
     entities:
-    - event: 'Djokovic-Nadal' 
+    - event: 'Djokovic-Nadal'
   - action: action_fetch_odds
   - action: utter_ask_info_account
+
+
+- story: User Wants to Place Multiple Bets
+  steps:
+  - intent: multiple_play
+  - action: utter_ask_event
+
+  - intent: select_event
+    entities:
+    - event: 'Djokovic-Nadal'
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: 'Home'
+  - action: action_bet
+  - action: utter_continue_betting
+  - intent: affirm
+  - action: utter_ask_event
+  
+  - intent: select_event
+    entities:
+    - event: 'Djokovic-Nadal'
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: 'Home'
+  - action: action_bet
+  - action: utter_continue_betting
+  - intent: deny
+
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: 10
+  - action: action_set_play
+  - action: utter_bets_summary

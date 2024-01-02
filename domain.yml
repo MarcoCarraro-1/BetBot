@@ -32,16 +32,21 @@ intents:
   - insert_display_events
   - display_odds
   - insert_display_odds
+  - select_event
+  - select_outcome
+  - insert_bet_amount
 
 #info extracted from incoming text
 entities:
   - username
   - reload_amount
+  - bet_amount
   - ticket_id
   - sport
   - date
   - event
   - outcome
+  - bets
 
 #variables remembered over conversation
 #memory of the assistant
@@ -127,12 +132,13 @@ slots:
       intent: insert_ticket_id
   
   event:
-    type: text
+    type: text #list
     influence_conversation: false
     initial_value: None
     mappings:
     - type: from_entity
       entity: event
+  
   sport:
     type: text
     influence_conversation: false
@@ -140,18 +146,35 @@ slots:
     mappings:
     - type: from_entity
       entity: sport
+  
   date:
     type: any
     mappings:
     - type: from_entity
       entity: date
+  
   outcome:
-    type: text
+    type: text #list
     influence_conversation: false
     initial_value: None
     mappings:
     - type: from_entity
       entity: outcome
+  
+  bets:
+    type: list
+    influence_conversation: false
+    initial_value: []
+    mappings:
+    - type: from_entity
+      entity: bets
+  
+  bet_amount:
+    type: any
+    initial_value: 0
+    mappings:
+    - type: from_entity
+      entity: bet_amount
 
 #things bot can say to users
 responses:
@@ -356,6 +379,17 @@ responses:
   - text: "what is your prediction on {event}?"
   - text: "How do you think will end?"
   - text: "On whom do you want to bet?"
+
+  utter_bets_summary:
+  - text: "Your current bets: {bets}"
+
+  utter_ask_bet_amount:
+  - text: "How much do you want to bet?"
+  - text: "How much you put?"
+
+  utter_continue_betting:
+  - text: "Do you want to add another play?"
+  - text: "Would you like to play on another event?"
 #application logic and extend bot capabilities
 #forms and actions
 
@@ -372,3 +406,5 @@ actions:
 - action_fetch_events
 - action_set_single_play
 - action_fetch_odds
+- action_bet
+- action_set_play

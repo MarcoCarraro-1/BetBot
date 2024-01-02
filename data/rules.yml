@@ -323,3 +323,15 @@ rules:
   - slot_was_set:
     - authenticated: false
   - action: utter_not_logged
+
+- rule: user wants to continue to bet
+  steps:
+  - action: utter_continue_betting
+  - intent: affirm
+  - action: utter_ask_event
+
+- rule: user doens't want to continue to bet
+  steps:
+  - action: utter_continue_betting
+  - intent: deny
+  - action: utter_ask_bet_amount

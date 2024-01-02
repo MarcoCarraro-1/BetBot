@@ -28,20 +28,7 @@ import json
 import random
 import word2number
 from word2number import w2n
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
+
 
 class ActionAuthUser(Action):
 
@@ -154,6 +141,7 @@ class ActionCheckAmount(Action):
             return[SlotSet("valid_amount", False)]
 
 
+# This custom action shows us all the events about a specified sport
 class ActionFetchData(Action):
     def name(self) -> Text:
         return "action_fetch_events"
@@ -184,56 +172,54 @@ class ActionFetchData(Action):
         return []
 
 
-class ActionSetSingle(Action):
+# This custom action allow us to popolate an array slot [so we can manage variable number of bets]
+class BetAction(Action):
     def name(self) -> Text:
-        return "action_set_single_play"
+        return "action_bet"
 
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # Assuming your JSON file is named 'database.json'
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # Extract bet information from user input
+        event_entity = tracker.get_slot('event')
+        outcome_entity = tracker.get_slot('outcome')
 
-        # Extract entities from the tracker
-        user_entity = tracker.get_slot("username")
-        event_entity = tracker.get_slot("event")
-        sport_entity = tracker.get_slot("sport")
-        outcome_entity = tracker.get_slot("outcome")
+        # Retrieve the current list of bets from the user's slot
+        # First time will be empty
+        current_bets = tracker.get_slot("bets") or []
+        exit_status = 'ok'
 
-        # Debug prints
-        print("Event Entity:", event_entity)
-        print("Sport Entity:", sport_entity)
-        print("Outcome Entity:", outcome_entity)
+        for bet in current_bets:
+            if event_entity == bet['event']:
+                exit_status = []
+                break
+        
+        if len(current_bets) >= 5:
+            exit_status = 'too many'
+        
+        if exit_status == []:
+            print('The user already bet on this game... It is not possible to bet twice')
+            dispatcher.utter_message(f"You already placed a bet on {event_entity}. It's not possible to bet twice on the same event.")
+        elif exit_status == 'too many':
+            print('The user reached the maximum amount of events')
+            dispatcher.utter_message(f"It isn't possible to bet on more than 5 events in the same ticket!")
+            exit_status = []
+        else:
+            # Append the new bet to the list
+            current_bets.append({"event": event_entity, "outcome": outcome_entity})
 
-        winning_status = False
-        ticket_number =  str(random.randint(100000, 999999))
-        # TO-DO check if the random number created already exists, if so regenerate it
+            # Debug message
+            print(f"Bet {outcome_entity} on {event_entity} added successfully!")
+            exit_status = [SlotSet("bets", current_bets)]
 
-        # Create a new ticket
-        new_ticket = {
-            "number": ticket_number,
-            "username": user_entity,
-            "type": "single",
-            "events": [event_entity],
-            "outcomes": [outcome_entity],
-            "bet_amount": 10,
-            "potential_win": 16.5,
-            "win": winning_status
-        }
-
-        with open('./data/data.json', 'r') as file:
-            data = json.load(file)
-
-        # Add a new ticket to the "ticket" entity
-        data["ticket"].append(new_ticket)
-
-        # Save the updated data back to database.json
-        with open('./data/data.json', 'w') as file:
-            json.dump(data, file, indent=2)
-
-        dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!")
-
-
-        return []
+        # Set the updated list of bets in the slot
+        return exit_status
 
 
+# This custom action is similar to 'ActionFetchData' but for odds
 class ActionFetchOdds(Action):
     def name(self) -> Text:
         return "action_fetch_odds"
@@ -263,5 +249,64 @@ class ActionFetchOdds(Action):
         else:
             dispatcher.utter_message("Event not found")
 
-
         return []
+
+
+# This custom action allow us to place the bet [both single and multiple]
+# Previous version was split in two: one for single play and one for multiple play
+class ActionSetBet(Action):
+    def name(self) -> Text:
+        return "action_set_play"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Extract entities from the tracker
+        user_entity = tracker.get_slot("username")
+        bets_entity = tracker.get_slot("bets")
+        amount_entity = tracker.get_slot("bet_amount")
+
+        # Debug prints
+        print("Username:", user_entity)
+        print("His picks:", bets_entity)
+        print(f"He bets {amount_entity} euros")
+
+        winning_status = False
+        
+        play_type = 'single'
+        if len(bets_entity) > 1:
+            play_type = 'multiple'
+
+        selected_events = []
+        selected_outcomes = []
+        for element in bets_entity:
+            selected_events.append(element['event'])
+            selected_outcomes.append(element['outcome'])
+
+        ticket_number =  str(random.randint(100000, 999999))
+        # TO-DO check if the random number created already exists, if so regenerate it
+
+        # Create a new ticket
+        new_ticket = {
+            "number": ticket_number,
+            "username": user_entity,
+            "type": play_type,
+            "events": selected_events,
+            "outcomes": selected_outcomes,
+            "bet_amount": amount_entity,
+            "potential_win": 16.5,
+            "win": winning_status
+        }
+
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        # Add a new ticket to the "ticket" entity
+        data["ticket"].append(new_ticket)
+
+        # Save the updated data back to database.json
+        with open('./data/data.json', 'w') as file:
+            json.dump(data, file, indent=2)
+
+        dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!")
+
+        return [SlotSet("bets", [])]

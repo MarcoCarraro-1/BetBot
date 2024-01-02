@@ -39,6 +39,10 @@ nlu:
     - alright
     - that's ok
     - agree
+    - let's go
+    - why not
+    - absolutely
+    - yeah
 - intent: deny
   examples: |
     - no
@@ -51,6 +55,12 @@ nlu:
     - not
     - don't agree
     - wrong
+    - Noo
+    - actually no
+    - nope
+    - no, i'm good
+    - Nope
+
 - intent: multiple_play
   examples: |
     - I want to make a multiple play
@@ -464,3 +474,19 @@ nlu:
     - odds
     - tell me the odds
     - what are the odds of
+
+- intent: insert_bet_amount
+  examples: |
+    - [15](bet_amount) euros
+    - i want to refill [22](bet_amount)
+    - recharge [12](bet_amount)
+    - [10](bet_amount) please
+    - the amount is [5](bet_amount) euros
+    - [20](bet_amount)
+    - i want to recharge [20](bet_amount) euros
+    - add [10](bet_amount) to my account
+    - [10](bet_amount)
+    - [15](bet_amount)
+    - [5](bet_amount)
+    - [25](bet_amount)
+    
