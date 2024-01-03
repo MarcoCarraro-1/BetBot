@@ -17,16 +17,6 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - slot_was_set:
-    - balance: 83.75
-  - slot_was_set:
-    - weekly_report: 34.3
-  - slot_was_set:
-    - monthly_report: -2.87
-  - slot_was_set:
-    - payment_method: your IBAN IT12345678900000
-  - slot_was_set:
-    - crediting_method: your IBAN IT12345678900000
   - action: utter_ask_info_account
   - intent: reload_account
   - action: utter_ask_reload_amount
@@ -46,8 +36,6 @@ stories:
   - intent: affirm
   - action: utter_confirm_invoice
   - action: action_refresh_balance
-  - slot_was_set:
-    - balance: 103.75
   - action: utter_ask_info_account
   - intent: reload_account
   - action: utter_ask_reload_amount
@@ -66,8 +54,6 @@ stories:
   - action: utter_ask_invoice
   - intent: deny
   - action: action_refresh_balance
-  - slot_was_set:
-    - balance: 128.75
   - action: utter_ask_info_account
   - intent: show_username
   - action: utter_show_username
@@ -100,16 +86,6 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - slot_was_set:
-    - balance: 0.0
-  - slot_was_set:
-    - weekly_report: 0.0
-  - slot_was_set:
-    - monthly_report: 0.0
-  - slot_was_set:
-    - payment_method: null
-  - slot_was_set:
-    - crediting_method: null
   - action: utter_ask_info_account
   - intent: check_ticket
   - action: utter_ask_ticket_id
@@ -196,3 +172,29 @@ stories:
     - bets: []
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: check_ticket
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: deny
+  - action: utter_ask_registration
+  - action: utter_ask_registration
+  - intent: insert_username_login
+    entities:
+    - username: nome@mail.com
+  - slot_was_set:
+    - username: nome@mail.com
+  - intent: insert_username_registration
+    entities:
+    - username: nome@mail.com
+  - action: action_reg_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - username: None
+  - action: utter_ask_info_account
+  - intent: check_ticket
+  - action: utter_ask_ticket_id

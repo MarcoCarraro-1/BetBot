@@ -1,0 +1,14 @@
+version: "3.1"
+nlu:
+- intent: check_ticket
+  examples: |
+    - check ticket
+- intent: affirm
+  examples: |
+    - yes
+- intent: deny
+  examples: |
+    - no
+- intent: insert_username_registration
+  examples: |
+    - [nome@mail.com](username)

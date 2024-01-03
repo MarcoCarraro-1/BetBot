@@ -166,7 +166,7 @@ stories:
   - intent: insert_username_registration #maybe login instead registration
     entities:
     - username: user99 
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account
@@ -242,7 +242,7 @@ stories:
   - intent: insert_username_registration #maybe login instead registration
     entities:
     - username: newuser00 
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   #- intent: affirm
@@ -322,7 +322,7 @@ stories:
   - intent: insert_username_registration #maybe login instead registration
     entities:
     - username: test@mail.com 
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account
@@ -340,7 +340,7 @@ stories:
   - intent: insert_username_registration #maybe login instead registration
     entities:
     - username: randomname 
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account
@@ -380,7 +380,7 @@ stories:
   - intent: insert_username_registration #maybe login instead registration
     entities:
     - username: bettinguser 
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account
@@ -394,7 +394,7 @@ stories:
   - intent: insert_username_registration
     entities:
     - username: bettingfun
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account

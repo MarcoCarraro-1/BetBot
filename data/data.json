@@ -38,7 +38,6 @@
   ],
   "user": [
     {
-      "id": 0,
       "name": "Decebal",
       "surname": "Cernei",
       "fiscal_code": "CRNDBL99E15Z140J",
@@ -50,16 +49,26 @@
       "favorite_payment_method": "PayPal"
     },
     {
-      "id": 1,
       "name": "Marco",
       "surname": "Carraro",
       "fiscal_code": "CRMRC99E20Z180M",
-      "username": "marco",
+      "username": "BaffoSelvadego",
       "password": "password",
       "balance": 80,
       "weekly_recap": 52,
       "monthly_recap": 27,
       "favorite_payment_method": "Debit Card"
+    },
+    {
+      "name": "Nome",
+      "surname": "Cognome",
+      "fiscal_code": "FSCLCD",
+      "username": "None",
+      "password": "password",
+      "balance": 0,
+      "weekly_recap": 0,
+      "monthly_recap": 0,
+      "favorite_payment_method": "PayPal"
     }
   ],
   "ticket": [

@@ -95,7 +95,7 @@ rules:
 - rule: Authenticate user after registration
   steps:
   - intent: insert_username_registration
-  - action: action_auth_user
+  - action: action_reg_user
   - slot_was_set:
     - authenticated: true
   - action: utter_ask_info_account

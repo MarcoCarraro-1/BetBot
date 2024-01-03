@@ -38,44 +38,69 @@ class ActionAuthUser(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        predicted_intent = tracker.get_intent_of_latest_message()
-        current_username = next(tracker.get_latest_entity_values("username"), None)
-
-        if current_username is not None:
-            possible_p_methods = ["your Paypal account ("+current_username+")", 
-                            "your IBAN IT12345678900000",
-                            "your VISA card with number 1234 5678 9000"]
-            possible_c_methods = ["your Paypal account ("+current_username+")", 
-                            "your IBAN IT12345678900000",
-                            "your VISA card with number 1234 5678 9000"]
-            if(predicted_intent == 'insert_username_login'):
-                dispatcher.utter_message(text="Successfully logged in! Welcome back "+current_username+"!")
-                balance = round(random.uniform(0.0, 150.0), 2)
-                monthly_report = round(random.uniform(-150.0, 150.0), 2)
-                weekly_report = round(random.uniform(-150.0, 150.0), 2)
-                p_method_index = int(round(random.uniform(0, 2), 0))
-                c_method_index = int(round(random.uniform(0, 2), 0))
-                p_method = possible_p_methods[p_method_index]
-                c_method = possible_c_methods[c_method_index]
-            else:
-                dispatcher.utter_message(text="Account created successfully! Welcome "+current_username+"!")
-                balance = 0.0
-                monthly_report = 0.0
-                weekly_report = 0.0
-                p_method = None
-                c_method = None
-            
-            return [SlotSet("authenticated", True), 
-                    SlotSet("balance", balance), 
-                    SlotSet("weekly_report", weekly_report), 
-                    SlotSet("monthly_report", monthly_report),
-                    SlotSet("payment_method", p_method),
-                    SlotSet("crediting_method", c_method)]
-        else:
-            dispatcher.utter_message(text="Authentication failed! You could try with default username: name@mail.com")
-            return []
         
+        # Open our database
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        username_entity = tracker.get_slot('username')
+        already_registred = False
+
+        for user in data.get("user", []):
+            if user["username"] == username_entity:
+                already_registred = True
+
+        if already_registred:
+            dispatcher.utter_message(text="Successfully logged in! Welcome back "+username_entity+"!")
+        else:
+            dispatcher.utter_message(text="It seems that you're not registred yet. "+username_entity+"!")
+
+        return [SlotSet("authenticated", already_registred)]
+
+
+# This custom action allow a user to register
+class ActionRegUser(Action):
+    def name(self) -> Text:
+        return "action_reg_user"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Extract entities from the tracker
+        user_entity = tracker.get_slot("username")
+
+        # Debug prints
+        print("Username:", user_entity)
+
+        # Create a new user
+        
+        new_user = {
+            "name": "Nome",
+            "surname": "Cognome",
+            "fiscal_code": "FSCLCD",
+            "username": user_entity,
+            "password": "password",
+            "balance": 0,
+            "weekly_recap": 0,
+            "monthly_recap": 0,
+            "favorite_payment_method": "PayPal"
+        }
+
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        # Add a new user to the "user" entity
+        data["user"].append(new_user)
+
+        # Save the updated data back to database.json
+        with open('./data/data.json', 'w') as file:
+            json.dump(data, file, indent=2)
+
+        dispatcher.utter_message(f"Welcome {user_entity}, you're now part of our family!")
+
+        return [SlotSet("authenticated", True),
+                SlotSet("username", user_entity)]
+
+
 class ActionLogoutUser(Action):
 
     def name(self) -> Text:
@@ -97,24 +122,29 @@ class ActionRefreshBalance(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+        username_entity = tracker.get_slot("username")
 
-        current_balance = float(tracker.get_slot("balance"))
-        #reload_amount = float(tracker.get_slot("reload_amount"))
-        #reload_amount = next(tracker.get_latest_entity_values("reload_amount"))
-        #reload_amount = round(float(reload_amount_str), 2)
-        #reload_amount = round(float(next(tracker.get_latest_entity_values("reload_amount"), 0.0)), 2)
-        #reload_amount = next(tracker.get_latest_entity_values("reload_amount"), None)
         try:
             reload_amount = float(tracker.get_slot("reload_amount"))
-            #dispatcher.utter_message(text=f"I found this reload amount: {reload_amount}")
             dispatcher.utter_message(text="Your reload was successful!")
-            new_balance = round((current_balance + reload_amount), 2)
-            dispatcher.utter_message(text=f"Your new balance is {new_balance}€.")
-            return [SlotSet("balance", new_balance)]
+            for user in data.get("user", []):
+                if user["username"] == username_entity:
+                    new_balance = user["balance"] + reload_amount
+                    user["balance"] = new_balance
+                    # Write back to the JSON file
+                    with open('your_file.json', 'w') as file:
+                        json.dump(data, file, indent=2)
+                    dispatcher.utter_message(text=f"Your new balance is {new_balance}€.")
+                    break
         except:
             dispatcher.utter_message(text="Something goes wrong, no transactions have been made on your account.")
             dispatcher.utter_message(text="Try again by entering the sum in numbers")
-            return[SlotSet("reload_amount", None)]
+        return[]
+
+
         
 class ActionCheckAmount(Action):
 

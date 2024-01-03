@@ -34,10 +34,10 @@ intents:
 - single_play
 - weekly_report
 entities:
+- username
 - outcome
 - event
 - bet_amount
-- username
 - reload_amount
 - ticket_id
 - sport
@@ -313,6 +313,12 @@ session_config:
   - play_single
   - play_multiple
 actions:
+- utter_ask_registration
+- utter_ask_exist_account
+- utter_not_logged
+- utter_ask_info_account
+- action_reg_user
+- utter_ask_ticket_id
 - utter_ask_outcome
 - action_bet
 - action_set_play
