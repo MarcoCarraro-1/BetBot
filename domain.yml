@@ -351,10 +351,6 @@ responses:
   - text: "Ok! Let's check if you won. Please enter your ticket number here:"
   - text: "Please enter your ticket number to check if it is a winner:"
 
-  utter_result_ticket:
-  - text: "Congratulations! The ticket is a winner!"
-  - text: "Unlucky! This time you didn't win..."
-
   utter_ask_sport:
   - text: "Please insert the sport you are interested in"
   - text: "Which sport do you want me to display the events of?"
@@ -404,3 +400,4 @@ actions:
 - action_fetch_odds
 - action_bet
 - action_set_play
+- action_check_ticket

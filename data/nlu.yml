@@ -361,23 +361,23 @@ nlu:
     - did I win?
     - coupon check
     - can you tell me if a ticket is a winning one?
-    - is the [0123456](ticket_id) coupon winning?
-    - check ticket [dsfhbi2452](ticket_id)
-    - the number of my ticket is [53287ha2yr](ticket_id)
+    - is the [483011](ticket_id) coupon winning?
+    - check ticket [123456](ticket_id)
+    - the number of my ticket is [654875](ticket_id)
     - hello check my ticket
 - intent: insert_ticket_id
   examples: |
-    - [2357249](ticket_id)
-    - [afakjnsa34](ticket_id)
-    - [132918dsa](ticket_id)
-    - my ticket number is [4378723ah](ticket_id)
-    - my ticket is [afhd634](ticket_id)
-    - my number is [31468ada](ticket_id)
-    - this is my ticket: [adas678kfg](ticket_id)
-    - [dsa7632ke](ticket_id)
-    - my ticket is [aewzcvnb](ticket_id)
-    - my ticket number is [18452](ticket_id)
-    - [dakhas73746](ticket_id)
+    - [553248](ticket_id)
+    - [123456](ticket_id)
+    - [789321](ticket_id)
+    - my ticket number is [654875](ticket_id)
+    - my ticket is [199955](ticket_id)
+    - my number is [582459](ticket_id)
+    - this is my ticket: [483011](ticket_id)
+    - [123457](ticket_id)
+    - my ticket is [987654](ticket_id)
+    - my ticket number is [284652](ticket_id)
+    - [172839](ticket_id)
 
 - intent: display_events
   examples: |

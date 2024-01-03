@@ -318,7 +318,9 @@ rules:
   - intent: insert_ticket_id
   - slot_was_set:
     - authenticated: true
-  - action: utter_result_ticket
+  - action: action_check_ticket
+  - slot_was_set:
+    - ticket_id: 553248
   - action: utter_ask_info_account
   - slot_was_set:
     - authenticated: false
@@ -348,8 +350,8 @@ rules:
   - action: action_fetch_events
   - action: utter_ask_event
 
-- rule: user select an event, bot ask outcome
-  steps:
-  - intent: select_event
-  - action: action_fetch_odds
-  - action: utter_ask_outcome
+#- rule: user select an event, bot ask outcome
+#  steps:
+#  - intent: select_event
+#  - action: action_fetch_odds
+#  - action: utter_ask_outcome

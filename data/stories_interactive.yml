@@ -115,6 +115,6 @@ stories:
   - action: utter_ask_ticket_id
   - intent: insert_ticket_id
     entities:
-    - ticket_id: dakhas73746
-  - action: utter_result_ticket
+    - ticket_id: 123456
+  - action: action_check_ticket
   - action: utter_ask_info_account

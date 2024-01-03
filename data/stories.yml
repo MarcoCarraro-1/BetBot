@@ -621,8 +621,8 @@ stories:
   - action: utter_ask_ticket_id
   - intent: insert_ticket_id
     entities:
-    - ticket_id: 'absy3463' 
-  - action: utter_result_ticket
+    - ticket_id: 132465
+  - action: action_check_ticket
   - action: utter_ask_info_account
 
 - story: user ask to see the available events

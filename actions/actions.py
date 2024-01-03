@@ -310,3 +310,38 @@ class ActionSetBet(Action):
         dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!")
 
         return [SlotSet("bets", [])]
+
+
+# This custom action is used for checking if a bet is won by the user
+class ActionCheckTicket(Action):
+    def name(self) -> Text:
+        return "action_check_ticket"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Read our db
+        with open('./data/data.json', 'r') as file:
+            data = json.load(file)
+
+        try:
+            ticket_id_entity = int(tracker.get_slot("ticket_id"))
+        except (ValueError, TypeError):
+            dispatcher.utter_message(f"The ticket id you provided is incorrect (has to be a number)")
+            ticket_id_entity = None  # You can set a default value or handle it accordingly
+            return []
+
+        # Debug prints
+        print("Ticket id is ", ticket_id_entity)
+
+        #ticket_id_entity = int(ticket_id_entity)
+
+        # Checking if a ticket is winner or not
+        selected_ticket = next((ticket for ticket in data.get("ticket", []) if ticket["number"] == ticket_id_entity), None)
+        if selected_ticket:
+            if selected_ticket['win'] == True:
+                dispatcher.utter_message(f"Congratulations! The ticket number {ticket_id_entity} made you win {selected_ticket['potential_win']}")
+            else:
+                dispatcher.utter_message(f"I'm sorry, you did not win this time. (you lost {selected_ticket['bet_amount']})")
+        else:
+            dispatcher.utter_message("Ticket not found")
+
+        return []
