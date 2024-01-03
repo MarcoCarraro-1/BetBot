@@ -176,22 +176,13 @@ slots:
     mappings:
     - type: from_entity
       entity: bet_amount
+      intent: insert_bet_amount
 
 #things bot can say to users
 responses:
   utter_greet:
-  - text: "Hey, this is BetBot! What play do you want to make?"
-    buttons: 
-    - title: "Single"
-      payload: "/single_play"
-    - title: "Multiple"
-      payload: "/multiple_play"
-  - text: "Hi, betting fan! What play do you want to make?"
-    buttons: 
-    - title: "Single"
-      payload: "/single_play"
-    - title: "Multiple"
-      payload: "/multiple_play"
+  - text: "Hey, this is BetBot! How can I help you?"
+  - text: "Hi, betting fan! What do you need?"
 
   utter_ask_login:
   - text: "To login enter your email or username here: "
@@ -366,8 +357,8 @@ responses:
   - text: "How do you think will end?"
   - text: "On whom do you want to bet?"
 
-  utter_bets_summary:
-  - text: "Your current bets: {bets}"
+  #utter_bets_summary:
+  #- text: "Your current bets: {bets}"
 
   utter_ask_bet_amount:
   - text: "How much do you want to bet?"

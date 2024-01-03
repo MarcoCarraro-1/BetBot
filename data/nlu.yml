@@ -15,6 +15,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - hellO!
 - intent: goodbye
   examples: |
     - cu
@@ -60,7 +61,7 @@ nlu:
     - nope
     - no, i'm good
     - Nope
-
+    - no thanks
 - intent: multiple_play
   examples: |
     - I want to make a multiple play
@@ -378,7 +379,6 @@ nlu:
     - my ticket is [987654](ticket_id)
     - my ticket number is [284652](ticket_id)
     - [172839](ticket_id)
-
 - intent: display_events
   examples: |
     - what sport events do you have?
@@ -393,7 +393,10 @@ nlu:
     - can you show me some sport events options
     - can you show me some events options
     - can you show me some matches options
-
+    - can you show me the sport events?
+    - i want to see the events
+    - can you show me the events?
+    - show the events please
 - intent: insert_display_events
   examples: |
     - what [football](sport) matches do you have?
@@ -417,7 +420,7 @@ nlu:
     - show me the [basketball](sport) matches
     - show me the [tennis](sport) matches
     - show me the [boxing](sport) matches
-
+    - [football](sport)
 - intent: select_event
   examples: |
     - [Fiorentina-Milan](event)
@@ -437,7 +440,7 @@ nlu:
     - Bet on [Djokovic-Nadal](event)
     - Interested in [Napoli-Lecce](event)
     - I'm interested in [Fiorentina-Milan](event)
-
+    - [Inter-Roma](event)
 - intent: select_outcome
   examples: |
     - [1](outcome)
@@ -456,17 +459,15 @@ nlu:
     - They are gonna [draw](outcome)
     - [home] will win
     - [away] will win
-
 - intent: display_odds
   examples: |
     - what are the odds?
     - can you tell me the odds?
     - how much will pay Roma's win?
     - how much will pay team's win?
-    - odds 
+    - odds
     - tell me the odds
     - what are the odds of
-
 - intent: insert_bet_amount
   examples: |
     - [15](bet_amount) euros
@@ -481,4 +482,4 @@ nlu:
     - [15](bet_amount)
     - [5](bet_amount)
     - [25](bet_amount)
-    
+    - [10](bet_amount) euros

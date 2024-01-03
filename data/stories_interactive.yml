@@ -118,3 +118,43 @@ stories:
     - ticket_id: 123456
   - action: action_check_ticket
   - action: utter_ask_info_account
+
+- story: interactive_story_4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: display_events
+  - action: utter_list_sports
+  - action: utter_ask_sport
+  - intent: insert_display_events
+    entities:
+    - sport: football
+  - slot_was_set:
+    - sport: football
+  - action: action_fetch_events
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: Inter-Roma
+  - slot_was_set:
+    - event: Inter-Roma
+  - action: action_fetch_odds
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: home
+  - action: action_bet
+  - slot_was_set:
+    - bets:
+      - event: Inter-Roma
+        outcome: None
+  - action: utter_continue_betting
+  - intent: deny
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: '10'
+  - action: action_set_play
+  - slot_was_set:
+    - bets: []
+  - action: utter_ask_info_account

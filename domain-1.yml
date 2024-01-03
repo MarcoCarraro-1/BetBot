@@ -6,9 +6,14 @@ intents:
 - crediting_method
 - current_balance
 - deny
+- display_events
+- display_odds
 - goodbye
 - greet
 - info_account
+- insert_bet_amount
+- insert_display_events
+- insert_display_odds
 - insert_reload_amount
 - insert_ticket_id
 - insert_username_login
@@ -23,13 +28,21 @@ intents:
 - periodic_report
 - registration
 - reload_account
+- select_event
+- select_outcome
 - show_username
 - single_play
 - weekly_report
 entities:
-- ticket_id
+- event
+- outcome
+- bet_amount
+- sport
 - username
 - reload_amount
+- ticket_id
+- date
+- bets
 slots:
   username:
     type: text
@@ -101,20 +114,52 @@ slots:
     - type: from_entity
       entity: ticket_id
       intent: insert_ticket_id
+  event:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: event
+      intent: select_event
+  sport:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: sport
+      intent: insert_display_events
+  date:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: date
+  outcome:
+    type: text
+    influence_conversation: false
+    initial_value: None
+    mappings:
+    - type: from_entity
+      entity: outcome
+      intent: select_outcome
+  bets:
+    type: list
+    influence_conversation: false
+    initial_value: []
+    mappings:
+    - type: from_entity
+      entity: bets
+  bet_amount:
+    type: any
+    initial_value: 0
+    mappings:
+    - type: from_entity
+      entity: bet_amount
 responses:
   utter_greet:
-  - text: Hey, this is BetBot! What play do you want to make?
-    buttons:
-    - title: Single
-      payload: /single_play
-    - title: Multiple
-      payload: /multiple_play
-  - text: Hi, betting fan! What play do you want to make?
-    buttons:
-    - title: Single
-      payload: /single_play
-    - title: Multiple
-      payload: /multiple_play
+  - text: Hey, this is BetBot! How can I help you?
+  - text: Hi, betting fan! What do you need?
   utter_ask_login:
   - text: 'To login enter your email or username here: '
   - text: 'If you already have an account you can log in by entering your email or username: '
@@ -158,26 +203,17 @@ responses:
   - text: You are already logged in! Do you want to check your account info?
   - text: Already logged! Did you mean 'check my account info'?
   utter_ask_info_account:
-  - text: What account information do you wish to check?
-    buttons:
-    - title: My username
-      payload: /show_username
-    - title: Current balance
-      payload: /current_balance
-    - title: Periodic report
-      payload: /periodic_report
-    - title: Payment method
-      payload: /payment_method
-    - title: Crediting method
-      payload: /crediting_method
-    - title: Reload Account
-      payload: /reload_account
-    - title: Check a ticket
-      payload: /check_ticket
-    - title: I want to make a new play!
-      payload: /new_play
-    - title: Logout
-      payload: /logout
+  - text: |-
+      What account information do you wish to check?
+       My username (/show_username);
+       Current balance (/current_balance);
+       Periodic report (/periodic_report);
+       Payment method (/payment_method);
+       Crediting method (/crediting_method);
+       Reload account (/reload_account);
+       Check a ticket (/check_ticket);
+       Make a new play! (/new_play);
+       Logout (/logout)
   utter_show_username:
   - text: 'Your username is: {username}'
   - text: You are {username}
@@ -247,20 +283,49 @@ responses:
   utter_ask_ticket_id:
   - text: "Ok! Let's check if you won. Please enter your ticket number here:"
   - text: 'Please enter your ticket number to check if it is a winner:'
-  utter_result_ticket:
-  - text: Congratulations! The ticket {ticket_id} is a winner!
-  - text: Unlucky! This time you didn't win...
+  utter_ask_sport:
+  - text: Please insert the sport you are interested in
+  - text: Which sport do you want me to display the events of?
+  - text: Specify the sport please
+  utter_ask_event:
+  - text: Please insert the event you are interested in
+  - text: On which event do you want to bet?
+  - text: Specify the event you want to bet on please
+  utter_ask_outcome:
+  - text: what is your prediction on {event}?
+  - text: How do you think will end?
+  - text: On whom do you want to bet?
+  utter_bets_summary:
+  - text: 'Your current bets: {bets}'
+  utter_ask_bet_amount:
+  - text: How much do you want to bet?
+  - text: How much you put?
+  utter_continue_betting:
+  - text: Do you want to add another play?
+  - text: Would you like to play on another event?
+  utter_list_sports:
+  - text: 'These are the sports available: football, basketball and tennis.'
+  - text: 'The sports you can play on are: football, basketball and tennis.'
+  - text: 'You can choose from these sports: football, basketball, tennis.'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 actions:
-- utter_ask_exist_account
-- utter_ask_info_account
+- utter_continue_betting
+- action_fetch_odds
+- utter_ask_outcome
+- utter_ask_bet_amount
+- utter_ask_sport
+- action_set_play
+- utter_bets_summary
+- utter_greet
+- utter_ask_event
+- action_bet
+- action_fetch_events
+- utter_list_sports
 - action_auth_user
-- utter_ask_ticket_id
-- utter_not_logged
-- utter_result_ticket
-- utter_ask_login
 - action_logout_user
 - action_refresh_balance
 - action_check_amount
+- action_set_single_play
+- action_check_ticket

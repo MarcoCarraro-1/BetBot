@@ -46,6 +46,49 @@ stories:
   - action: utter_display_matches
   - checkpoint: play_multiple
 
+- story: user ask info account after greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: info_account
+  - slot_was_set:                   
+    - authenticated: false          
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: decebal 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_info_account
+
+- story: user ask to login after greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: login
+  - slot_was_set:                   
+    - authenticated: false          
+  - action: utter_ask_exist_account
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_already_logged
+
+- story: user ask to display events after greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: display_events
+  - action: utter_list_sports
+  - action: utter_ask_sport
+  - intent: insert_display_events
+    entities:
+    - sport: football 
+  - action: action_fetch_events
+  - action: utter_ask_event
+
 - story: single play
   steps:
   - checkpoint: play_single
@@ -643,14 +686,13 @@ stories:
   - action: utter_ask_event
   - intent: select_event
     entities:
-    - event: 'Djokovic-Nadal'
+    - event: 'Inter-Roma'
   - action: action_fetch_odds
 
 - story: User Wants to Place Multiple Bets
   steps:
   - intent: multiple_play
   - action: utter_ask_event
-
   - intent: select_event
     entities:
     - event: 'Djokovic-Nadal'
@@ -662,7 +704,6 @@ stories:
   - action: utter_continue_betting
   - intent: affirm
   - action: utter_ask_event
-  
   - intent: select_event
     entities:
     - event: 'Djokovic-Nadal'
@@ -679,5 +720,5 @@ stories:
     entities:
     - bet_amount: 10
   - action: action_set_play
-  - action: utter_bets_summary
+  - action: utter_ask_info_account
 
