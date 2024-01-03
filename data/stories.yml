@@ -9,7 +9,6 @@ stories:
   - intent: multiple_play
   - action: utter_confirm_multiple
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_multiple
 
 - story: multiple choice wrong
@@ -21,7 +20,6 @@ stories:
   - intent: deny
   - action: utter_confused_single
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_single
 
 - story: single choice correct
@@ -31,7 +29,6 @@ stories:
   - intent: single_play
   - action: utter_confirm_single
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_single
 
 - story: single choice wrong
@@ -43,7 +40,6 @@ stories:
   - intent: deny
   - action: utter_confused_multiple
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_multiple
 
 - story: user ask info account after greet
@@ -92,12 +88,21 @@ stories:
 - story: single play
   steps:
   - checkpoint: play_single
-  - action: utter_ask_single_choice
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: 'Djokovic-Nadal'
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: 'home'
+  - action: action_bet
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: 10
+  - action: action_set_play
 
-- story: multiple play
-  steps:
-  - checkpoint: play_multiple
-  - action: utter_ask_multiple_choice
 
 - story: out of scope
   steps:
@@ -113,7 +118,6 @@ stories:
   - intent: single_play
   - action: utter_confirm_single
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_single
 
 - story: restart after oos 2
@@ -124,7 +128,6 @@ stories:
   - intent: multiple_play
   - action: utter_confirm_multiple
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_multiple
 
 - story: restart after oos 3
@@ -260,7 +263,6 @@ stories:
   - intent: multiple_play
   - action: utter_confirm_multiple
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_multiple
 
 - story: make new single play
@@ -270,7 +272,6 @@ stories:
   - intent: single_play
   - action: utter_confirm_single
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_single
 
 - story: make new mutliple play with wrong interpretation
@@ -282,7 +283,6 @@ stories:
   - intent: deny
   - action: utter_confused_multiple
   - intent: affirm
-  - action: utter_display_matches
   - checkpoint: play_multiple
 
 - story: auth user asks for username
@@ -691,7 +691,8 @@ stories:
 
 - story: User Wants to Place Multiple Bets
   steps:
-  - intent: multiple_play
+  - checkpoint: play_multiple
+  #- intent: multiple_play
   - action: utter_ask_event
   - intent: select_event
     entities:

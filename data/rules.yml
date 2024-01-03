@@ -356,14 +356,14 @@ rules:
 #  - action: action_fetch_odds
 #  - action: utter_ask_outcome
 
-- rule: user select outcome, bot make bet
-  steps:
-  - action: utter_ask_outcome
-  - intent: select_outcome
-  - action: action_bet
-  - action: utter_continue_betting
+#- rule: user select outcome, bot make bet
+#  steps:
+#  - action: utter_ask_outcome
+#  - intent: select_outcome
+#  - action: action_bet
+#  - action: utter_continue_betting
 
-- rule: after set play, bot ask info account
-  steps:
-  - action: action_set_play
-  - action: utter_ask_info_account
+#- rule: after set play, bot ask info account
+#  steps:
+#  - action: action_set_play
+#  - action: utter_ask_info_account

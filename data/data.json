@@ -234,6 +234,132 @@
       "bet_amount": "10",
       "potential_win": 16.5,
       "win": false
+    },
+    {
+      "number": "741139",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Djokovic-Nadal",
+        "Inter-Roma"
+      ],
+      "outcomes": [
+        "home",
+        "away"
+      ],
+      "bet_amount": "15",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "681023",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Djokovic-Nadal",
+        "Inter-Roma"
+      ],
+      "outcomes": [
+        "home",
+        "away"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "761628",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Inter-Roma",
+        "Napoli-Lecce"
+      ],
+      "outcomes": [
+        "away",
+        "draw"
+      ],
+      "bet_amount": "5",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "350259",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Djokovic-Nadal",
+        "Inter-Roma",
+        "Napoli-Lecce"
+      ],
+      "outcomes": [
+        "home",
+        "away",
+        "draw"
+      ],
+      "bet_amount": "5",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "520889",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Djokovic-Nadal",
+        "Inter-Roma"
+      ],
+      "outcomes": [
+        "home",
+        "away"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "673631",
+      "username": "None",
+      "type": "multiple",
+      "events": [
+        "Djokovic-Nadal",
+        "Inter-Roma"
+      ],
+      "outcomes": [
+        "home",
+        "away"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "581871",
+      "username": "None",
+      "type": "single",
+      "events": [
+        "Inter-Roma"
+      ],
+      "outcomes": [
+        "home"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "291791",
+      "username": "None",
+      "type": "single",
+      "events": [
+        "Djokovic-Nadal"
+      ],
+      "outcomes": [
+        "home"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
     }
   ]
 }

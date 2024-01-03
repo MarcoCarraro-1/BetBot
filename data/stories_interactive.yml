@@ -158,3 +158,41 @@ stories:
   - slot_was_set:
     - bets: []
   - action: utter_ask_info_account
+
+
+
+- story: interactive_story_5
+  steps:
+  - intent: new_play
+  - action: utter_ask_choice
+  - intent: single_play
+  - action: utter_confirm_single
+  - intent: affirm
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: Inter-Roma
+  - slot_was_set:
+    - event: Inter-Roma
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: home
+  - slot_was_set:
+    - outcome: home
+  - action: action_bet
+  - slot_was_set:
+    - bets:
+      - event: Inter-Roma
+        outcome: home
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: '10'
+  - slot_was_set:
+    - bet_amount: '10'
+  - action: action_set_play
+  - slot_was_set:
+    - bets: []
+  - intent: goodbye
+  - action: utter_goodbye

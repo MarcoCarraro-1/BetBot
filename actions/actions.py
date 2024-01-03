@@ -87,7 +87,8 @@ class ActionLogoutUser(Action):
 
         dispatcher.utter_message(text="Goodbye! You successfully logged out.")
         return [SlotSet("authenticated", False)]
-    
+
+
 class ActionRefreshBalance(Action):
 
     def name(self) -> Text:
@@ -303,11 +304,18 @@ class ActionSetBet(Action):
         # Add a new ticket to the "ticket" entity
         data["ticket"].append(new_ticket)
 
+        # Prepare the message with the ticket recap
+        message = ""
+        for i in range(len(selected_events)):
+            message += f"{i+1}. {selected_events[i]}  [{selected_outcomes[i]}]\n"
+
+        print('the message is: ', message)
         # Save the updated data back to database.json
         with open('./data/data.json', 'w') as file:
             json.dump(data, file, indent=2)
 
-        dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!")
+        dispatcher.utter_message(f"Bet ticket number {new_ticket['number']} successfully placed!\n"+
+                                 f"Ticket recap:\n{message}")
 
         return [SlotSet("bets", [])]
 

@@ -225,6 +225,7 @@ nlu:
     - start betting
     - i want to play
     - want to bet
+    - i want to bet
 - intent: registration
   examples: |
     - How do I register a new account?
@@ -420,7 +421,6 @@ nlu:
     - show me the [basketball](sport) matches
     - show me the [tennis](sport) matches
     - show me the [boxing](sport) matches
-    - [football](sport)
 - intent: select_event
   examples: |
     - [Fiorentina-Milan](event)
@@ -483,3 +483,4 @@ nlu:
     - [5](bet_amount)
     - [25](bet_amount)
     - [10](bet_amount) euros
+    - [10](bet_amount) euro
