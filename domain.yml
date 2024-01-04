@@ -13,7 +13,6 @@ intents:
 - info_account
 - insert_bet_amount
 - insert_display_events
-- insert_display_odds
 - insert_reload_amount
 - insert_ticket_id
 - insert_username_login

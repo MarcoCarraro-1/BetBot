@@ -30,6 +30,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - bye Betbot!
 - intent: affirm
   examples: |
     - yes
@@ -153,6 +154,7 @@ nlu:
     - my username is [bettingFun](username)
     - my username is [Justuser](username)
     - my username is [BaffoSelvadego](username)
+    - [name@mail.com](username)
 - intent: insert_username_registration
   examples: |
     - [john_doe](username)
@@ -410,6 +412,7 @@ nlu:
     - can you show me the events?
     - show the events please
     - can i see the events?
+    - can i see sport events?
 - intent: insert_display_events
   examples: |
     - what [football](sport) matches do you have?
@@ -433,6 +436,7 @@ nlu:
     - show me the [basketball](sport) matches
     - show me the [tennis](sport) matches
     - show me the [boxing](sport) matches
+    - [football](sport)
 - intent: select_event
   examples: |
     - [Fiorentina-Milan](event)
@@ -452,6 +456,8 @@ nlu:
     - Bet on [Djokovic-Nadal](event)
     - Interested in [Napoli-Lecce](event)
     - I'm interested in [Fiorentina-Milan](event)
+    - [Inter-Roma](event)
+    - [Napoli-Lecce](event)
 - intent: select_outcome
   examples: |
     - [1](outcome)
@@ -471,6 +477,8 @@ nlu:
     - [home] will win
     - [away] will win
     - i think [home](outcome) will win
+    - i think [home](outcome) will win
+    - [draw](outcome)!
 - intent: display_odds
   examples: |
     - what are the odds?
@@ -496,3 +504,4 @@ nlu:
     - [25](bet_amount)
     - [10](bet_amount) euros
     - [10](bet_amount) euro
+    - put [10](bet_amount) euros

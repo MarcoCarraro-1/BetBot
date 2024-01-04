@@ -13,7 +13,6 @@ intents:
 - info_account
 - insert_bet_amount
 - insert_display_events
-- insert_display_odds
 - insert_reload_amount
 - insert_ticket_id
 - insert_username_login
@@ -34,13 +33,13 @@ intents:
 - single_play
 - weekly_report
 entities:
-- username
-- reload_amount
-- outcome
 - event
-- bet_amount
-- ticket_id
 - sport
+- username
+- outcome
+- bet_amount
+- reload_amount
+- ticket_id
 - date
 - bets
 slots:
@@ -158,6 +157,11 @@ slots:
       entity: bet_amount
       intent: insert_bet_amount
   reload_context:
+    type: bool
+    initial_value: false
+    mappings:
+    - type: custom
+  bet_in_progress:
     type: bool
     initial_value: false
     mappings:
@@ -321,29 +325,30 @@ session_config:
   - play_single
   - play_multiple
 actions:
-- utter_ask_invoice
-- action_refresh_balance
-- utter_ask_reload_method
-- action_activate_reload_context
-- utter_ask_reload_amount
-- action_deactivate_reload_context
-- utter_ask_again_reload_amount
-- utter_ask_info_account
-- action_check_amount
-- utter_ask_confirm_amount
+- action_set_bet_in_progress
+- utter_ask_sport
+- utter_list_sports
+- action_set_play
+- utter_continue_betting
+- utter_ask_new_help
 - action_auth_user
-- utter_ask_registration
 - utter_ask_outcome
 - action_bet
-- action_set_play
-- utter_ask_bet_amount
+- action_remove_bet_in_progress
+- utter_not_logged
+- utter_ask_login
 - utter_ask_event
+- action_fetch_odds
+- action_fetch_events
+- utter_ask_bet_amount
+- utter_goodbye
+- utter_ask_exist_account
 - utter_ask_choice
 - utter_confirm_single
-- utter_continue_betting
-- utter_goodbye
 - action_logout_user
-- action_fetch_events
+- action_refresh_balance
+- action_check_amount
 - action_set_single_play
-- action_fetch_odds
 - action_check_ticket
+- action_activate_reload_context
+- action_deactivate_reload_context

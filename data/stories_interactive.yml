@@ -159,7 +159,7 @@ stories:
   - slot_was_set:
     - bets:
       - event: Inter-Roma
-        outcome: None
+        outcome: home
   - action: action_set_bet_in_progress
   - slot_was_set:
     - bet_in_progress: true
@@ -290,7 +290,7 @@ stories:
   - slot_was_set:
     - bets:
       - event: Inter-Roma
-        outcome: None
+        outcome: home
   - action: action_set_bet_in_progress
   - slot_was_set:
     - bet_in_progress: true
@@ -420,3 +420,101 @@ stories:
   - slot_was_set:
     - reload_context: false
   - action: utter_ask_info_account
+
+- story: interactive_story_1
+  steps:
+  - intent: display_events
+  - action: utter_list_sports
+  - action: utter_ask_sport
+  - intent: insert_display_events
+    entities:
+    - sport: football
+  - slot_was_set:
+    - sport: football
+  - action: action_fetch_events
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: Inter-Roma
+  - slot_was_set:
+    - event: Inter-Roma
+  - action: action_fetch_odds
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: home
+  - slot_was_set:
+    - outcome: home
+  - action: action_bet
+  - slot_was_set:
+    - bets:
+      - event: Inter-Roma
+        outcome: home
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
+  - action: utter_continue_betting
+  - intent: affirm
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: Napoli-Lecce
+  - slot_was_set:
+    - event: Napoli-Lecce
+  - action: action_fetch_odds
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: draw
+  - slot_was_set:
+    - outcome: draw
+  - action: action_bet
+  - slot_was_set:
+    - bets:
+      - event: Inter-Roma
+        outcome: home
+      - event: Napoli-Lecce
+        outcome: draw
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
+  - action: utter_continue_betting
+  - intent: deny
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: name@mail.com
+  - slot_was_set:
+    - username: name@mail.com
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 13.74
+  - slot_was_set:
+    - weekly_report: 89.74
+  - slot_was_set:
+    - monthly_report: 140.23
+  - slot_was_set:
+    - payment_method: your Paypal account (name@mail.com)
+  - slot_was_set:
+    - crediting_method: your IBAN IT12345678900000
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: '10'
+  - slot_was_set:
+    - bet_amount: '10'
+  - action: action_set_play
+  - slot_was_set:
+    - bets: []
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
+  - intent: goodbye
+  - action: utter_goodbye
