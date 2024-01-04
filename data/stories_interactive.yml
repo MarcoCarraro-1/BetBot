@@ -27,7 +27,7 @@ stories:
     - payment_method: your IBAN IT12345678900000
   - slot_was_set:
     - crediting_method: your IBAN IT12345678900000
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: reload_account
   - action: action_activate_reload_context
   - slot_was_set:
@@ -96,7 +96,7 @@ stories:
     entities:
     - username: bettingFun
   - action: action_auth_user
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: interactive_story_3
   steps:
@@ -122,7 +122,7 @@ stories:
     - payment_method: null
   - slot_was_set:
     - crediting_method: null
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: check_ticket
   - action: utter_ask_ticket_id
   - intent: insert_ticket_id
@@ -160,8 +160,22 @@ stories:
     - bets:
       - event: Inter-Roma
         outcome: None
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_continue_betting
   - intent: deny
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: decebal 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
@@ -169,6 +183,9 @@ stories:
   - action: action_set_play
   - slot_was_set:
     - bets: []
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
   - action: utter_ask_new_help
 
 
@@ -186,6 +203,7 @@ stories:
     - event: Inter-Roma
   - slot_was_set:
     - event: Inter-Roma
+  - action: action_fetch_odds
   - action: utter_ask_outcome
   - intent: select_outcome
     entities:
@@ -197,6 +215,9 @@ stories:
     - bets:
       - event: Inter-Roma
         outcome: home
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
@@ -206,6 +227,9 @@ stories:
   - action: action_set_play
   - slot_was_set:
     - bets: []
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
   - action: utter_ask_new_help
   - intent: goodbye
   - action: utter_goodbye
@@ -234,7 +258,7 @@ stories:
     - payment_method: null
   - slot_was_set:
     - crediting_method: null
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: interactive_story_7
   steps:
@@ -267,8 +291,22 @@ stories:
     - bets:
       - event: Inter-Roma
         outcome: None
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_continue_betting
   - intent: deny
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: decebal 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
@@ -278,7 +316,13 @@ stories:
   - action: action_set_play
   - slot_was_set:
     - bets: []
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
   - action: utter_ask_new_help
+
+- story: interactive_story_7.1
+  steps:
   - intent: registration
   - action: utter_ask_registration
   - intent: insert_username_registration
@@ -299,7 +343,7 @@ stories:
     - payment_method: null
   - slot_was_set:
     - crediting_method: null
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: interactive_story_8
   steps:
@@ -325,7 +369,7 @@ stories:
     - payment_method: null
   - slot_was_set:
     - crediting_method: null
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: interactive_story_9
   steps:
@@ -349,7 +393,7 @@ stories:
     - payment_method: null
   - slot_was_set:
     - crediting_method: null
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: reload_account
   - action: action_activate_reload_context
   - slot_was_set:

@@ -28,7 +28,12 @@ rules:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
+  - slot_was_set: 
+    - bet_in_progress: true
+  - action: utter_ask_bet_amount
 
 - rule: show info account
   steps:
@@ -98,7 +103,12 @@ rules:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
+  - slot_was_set: 
+    - bet_in_progress: true
+  - action: utter_ask_bet_amount
 
 - rule: Login if exists an account
   steps:
@@ -119,7 +129,12 @@ rules:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
+  - slot_was_set: 
+    - bet_in_progress: true
+  - action: utter_ask_bet_amount
 
 - rule: always ask again info if user ask own balance
   steps:
@@ -361,7 +376,12 @@ rules:
   steps:
   - action: utter_continue_betting
   - intent: deny
+  - slot_was_set:
+    - authenticated: true
   - action: utter_ask_bet_amount
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
 
 - rule: user ask to see the available events, bot ask sport
   steps:
@@ -378,6 +398,7 @@ rules:
 - rule: end betting, bot ask for help, user say no
   steps:
   - action: action_set_play
+  - action: action_remove_bet_in_progress
   - action: utter_ask_new_help
   - intent: deny
   - action: utter_goodbye
@@ -385,9 +406,23 @@ rules:
 - rule: end betting, bot ask for help, user say yes
   steps:
   - action: action_set_play
+  - action: action_remove_bet_in_progress
   - action: utter_ask_new_help
   - intent: affirm
   - action: utter_restart
+
+- rule: always show odds after user select event
+  steps:
+  - action: utter_ask_event
+  - intent: select_event
+  - action: action_fetch_odds
+  - action: utter_ask_outcome
+
+#- rule: when start action_bet, set bet in progress
+#  steps:
+#  - action: action_bet
+#  - action: set_bet_in_progress
+#  - action: utter_continue_betting
 
 #- rule: user select an event, bot ask outcome
 #  steps:

@@ -388,6 +388,38 @@
       "bet_amount": "10",
       "potential_win": 16.5,
       "win": false
+    },
+    {
+      "number": "271915",
+      "username": "name@mail.com",
+      "type": "multiple",
+      "events": [
+        "Inter-Roma",
+        "Napoli-Lecce"
+      ],
+      "outcomes": [
+        "home",
+        "away"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
+    },
+    {
+      "number": "737355",
+      "username": "name@mail.com",
+      "type": "multiple",
+      "events": [
+        "Inter-Roma",
+        "Napoli-Lecce"
+      ],
+      "outcomes": [
+        "home",
+        "draw"
+      ],
+      "bet_amount": "10",
+      "potential_win": 16.5,
+      "win": false
     }
   ]
 }

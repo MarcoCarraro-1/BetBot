@@ -162,6 +162,11 @@ slots:
     initial_value: false
     mappings:
     - type: custom
+  bet_in_progress:
+    type: bool
+    initial_value: false
+    mappings:
+    - type: custom
 responses:
   utter_greet:
   - text: Hey, this is BetBot! How can I help you?
@@ -340,3 +345,5 @@ actions:
 - action_check_ticket
 - action_activate_reload_context
 - action_deactivate_reload_context
+- action_set_bet_in_progress
+- action_remove_bet_in_progress
