@@ -29,6 +29,9 @@ stories:
     - crediting_method: your IBAN IT12345678900000
   - action: utter_ask_info_account
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -48,8 +51,14 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - balance: 103.75
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -68,6 +77,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - balance: 128.75
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
   - intent: show_username
   - action: utter_show_username
@@ -157,7 +169,7 @@ stories:
   - action: action_set_play
   - slot_was_set:
     - bets: []
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 
 
@@ -194,5 +206,173 @@ stories:
   - action: action_set_play
   - slot_was_set:
     - bets: []
+  - action: utter_ask_new_help
   - intent: goodbye
   - action: utter_goodbye
+
+- story: interactive_story_6
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: registration
+  - action: utter_ask_registration
+  - intent: insert_username_registration
+    entities:
+    - username: newbetter@mail.com
+  - slot_was_set:
+    - username: newbetter@mail.com
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 0.0
+  - slot_was_set:
+    - weekly_report: 0.0
+  - slot_was_set:
+    - monthly_report: 0.0
+  - slot_was_set:
+    - payment_method: null
+  - slot_was_set:
+    - crediting_method: null
+  - action: utter_ask_info_account
+
+- story: interactive_story_7
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: display_events
+  - action: utter_list_sports
+  - action: utter_ask_sport
+  - intent: insert_display_events
+    entities:
+    - sport: football
+  - slot_was_set:
+    - sport: football
+  - action: action_fetch_events
+  - action: utter_ask_event
+  - intent: select_event
+    entities:
+    - event: Inter-Roma
+  - slot_was_set:
+    - event: Inter-Roma
+  - action: action_fetch_odds
+  - action: utter_ask_outcome
+  - intent: select_outcome
+    entities:
+    - outcome: home
+  - slot_was_set:
+    - outcome: home
+  - action: action_bet
+  - slot_was_set:
+    - bets:
+      - event: Inter-Roma
+        outcome: None
+  - action: utter_continue_betting
+  - intent: deny
+  - action: utter_ask_bet_amount
+  - intent: insert_bet_amount
+    entities:
+    - bet_amount: '10'
+  - slot_was_set:
+    - bet_amount: '10'
+  - action: action_set_play
+  - slot_was_set:
+    - bets: []
+  - action: utter_ask_new_help
+  - intent: registration
+  - action: utter_ask_registration
+  - intent: insert_username_registration
+    entities:
+    - username: marcoc@mail.com
+  - slot_was_set:
+    - username: marcoc@mail.com
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 0.0
+  - slot_was_set:
+    - weekly_report: 0.0
+  - slot_was_set:
+    - monthly_report: 0.0
+  - slot_was_set:
+    - payment_method: null
+  - slot_was_set:
+    - crediting_method: null
+  - action: utter_ask_info_account
+
+- story: interactive_story_8
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: registration
+  - action: utter_ask_registration
+  - intent: insert_username_registration
+    entities:
+    - username: student@mail.com
+  - slot_was_set:
+    - username: student@mail.com
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 0.0
+  - slot_was_set:
+    - weekly_report: 0.0
+  - slot_was_set:
+    - monthly_report: 0.0
+  - slot_was_set:
+    - payment_method: null
+  - slot_was_set:
+    - crediting_method: null
+  - action: utter_ask_info_account
+
+- story: interactive_story_9
+  steps:
+  - intent: registration
+  - action: utter_ask_registration
+  - intent: insert_username_registration
+    entities:
+    - username: newcust@mail.com
+  - slot_was_set:
+    - username: newcust@mail.com
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - slot_was_set:
+    - balance: 0.0
+  - slot_was_set:
+    - weekly_report: 0.0
+  - slot_was_set:
+    - monthly_report: 0.0
+  - slot_was_set:
+    - payment_method: null
+  - slot_was_set:
+    - crediting_method: null
+  - action: utter_ask_info_account
+  - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '10'
+  - slot_was_set:
+    - reload_amount: '10'
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: deny
+  - action: action_refresh_balance
+  - slot_was_set:
+    - balance: 10.0
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
+  - action: utter_ask_info_account

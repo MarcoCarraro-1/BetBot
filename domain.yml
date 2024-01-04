@@ -157,6 +157,11 @@ slots:
     - type: from_entity
       entity: bet_amount
       intent: insert_bet_amount
+  reload_context:
+    type: bool
+    initial_value: false
+    mappings:
+    - type: custom
 responses:
   utter_greet:
   - text: Hey, this is BetBot! How can I help you?
@@ -303,9 +308,12 @@ responses:
   - text: Do you want to add another play?
   - text: Would you like to play on another event?
   utter_list_sports:
-  - text: 'These are the sports available: football, basketball and tennis.'
-  - text: 'The sports you can play on are: football, basketball and tennis.'
-  - text: 'You can choose from these sports: football, basketball, tennis.'
+  - text: "These are the sports available: football, basketball and tennis."
+  - text: "The sports you can play on are: football, basketball and tennis."
+  - text: "You can choose from these sports: football, basketball, tennis."
+  utter_ask_new_help:
+  - text: How can I help you now?
+  - text: Can I assist you with something else?
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
@@ -330,3 +338,5 @@ actions:
 - action_set_single_play
 - action_fetch_odds
 - action_check_ticket
+- action_activate_reload_context
+- action_deactivate_reload_context

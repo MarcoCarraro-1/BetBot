@@ -102,6 +102,7 @@ stories:
     entities:
     - bet_amount: 10
   - action: action_set_play
+  - action: utter_ask_new_help
 
 
 - story: out of scope
@@ -152,6 +153,9 @@ stories:
     - authenticated: true
   - action: utter_ask_info_account
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
 
 
@@ -293,6 +297,9 @@ stories:
   - action: utter_show_username
   - action: utter_ask_info_account
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
 
 - story: non auth registered user asks for username
@@ -490,6 +497,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -507,6 +517,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '15'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: non auth user ask for reload
@@ -523,6 +536,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -542,6 +558,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but wrong amount
@@ -549,6 +568,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -573,6 +595,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload and change his mind
@@ -580,6 +605,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -608,6 +636,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but deny method
@@ -615,6 +646,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -634,6 +668,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but deny method and deny continue
@@ -641,6 +678,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -715,11 +755,10 @@ stories:
   - action: action_bet
   - action: utter_continue_betting
   - intent: deny
-
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
     - bet_amount: 10
   - action: action_set_play
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 

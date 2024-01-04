@@ -353,3 +353,29 @@ class ActionCheckTicket(Action):
             dispatcher.utter_message("Ticket not found")
 
         return []
+    
+class ActionActivateReloadContext(Action):
+
+    def name(self) -> Text:
+        return "action_activate_reload_context"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        reload_context = tracker.get_slot("reload_context")
+
+        return[SlotSet("reload_context", True)]
+    
+class ActionDeactivateReloadContext(Action):
+
+    def name(self) -> Text:
+        return "action_deactivate_reload_context"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        reload_context = tracker.get_slot("reload_context")
+
+        return[SlotSet("reload_context", False)]
