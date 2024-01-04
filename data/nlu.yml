@@ -16,6 +16,8 @@ nlu:
     - goodevening
     - good afternoon
     - hellO!
+    - hello there!
+    - hi there
 - intent: goodbye
   examples: |
     - cu
@@ -156,10 +158,14 @@ nlu:
     - [john_doe](username)
     - [test@mail.com](username)
     - my username is [user99](username)
-    - my mail is [newuser00](username)
+    - my mail is [newuser00@mail](username)
+    - my email is [newbetter@mail.com](username)
     - my name is [bettinguser](username)
     - this is my username: [alice_johnson](username)
     - [test@gmail.com](username)
+    - my email is [marcoc@mail.com](username)
+    - my email is [student@mail.com](username)
+    - my email is [newcust@mail.com](username)
 - intent: info_account
   examples: |
     - can i check my info?
@@ -247,6 +253,9 @@ nlu:
     - i dont have an account
     - i need to register
     - still need to register
+    - can i register?
+    - i want to register myself
+    - register myself please
 - intent: periodic_report
   examples: |
     - report
@@ -354,6 +363,8 @@ nlu:
     - [thirty](reload_amount)
     - [one hundred](reload_amount)
     - [five hundred](reload_amount) euros
+    - [10](reload_amount) euros
+    - refill [10](reload_amount) euros
 - intent: check_ticket
   examples: |
     - i want to check a ticket
@@ -398,6 +409,7 @@ nlu:
     - i want to see the events
     - can you show me the events?
     - show the events please
+    - can i see the events?
 - intent: insert_display_events
   examples: |
     - what [football](sport) matches do you have?
@@ -440,7 +452,6 @@ nlu:
     - Bet on [Djokovic-Nadal](event)
     - Interested in [Napoli-Lecce](event)
     - I'm interested in [Fiorentina-Milan](event)
-    - [Inter-Roma](event)
 - intent: select_outcome
   examples: |
     - [1](outcome)
@@ -459,6 +470,7 @@ nlu:
     - They are gonna [draw](outcome)
     - [home] will win
     - [away] will win
+    - i think [home](outcome) will win
 - intent: display_odds
   examples: |
     - what are the odds?
@@ -471,13 +483,13 @@ nlu:
 - intent: insert_bet_amount
   examples: |
     - [15](bet_amount) euros
-    - i want to refill [22](bet_amount)
-    - recharge [12](bet_amount)
+    - i want to bet [22](bet_amount)
+    - put [12](bet_amount)
     - [10](bet_amount) please
-    - the amount is [5](bet_amount) euros
+    - [5](bet_amount) euros
     - [20](bet_amount)
-    - i want to recharge [20](bet_amount) euros
-    - add [10](bet_amount) to my account
+    - i want to play [20](bet_amount) euros
+    - let's put [10](bet_amount)
     - [10](bet_amount)
     - [15](bet_amount)
     - [5](bet_amount)

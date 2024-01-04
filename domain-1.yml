@@ -34,13 +34,13 @@ intents:
 - single_play
 - weekly_report
 entities:
-- event
-- outcome
-- bet_amount
-- sport
 - username
 - reload_amount
+- outcome
+- event
+- bet_amount
 - ticket_id
+- sport
 - date
 - bets
 slots:
@@ -156,6 +156,12 @@ slots:
     mappings:
     - type: from_entity
       entity: bet_amount
+      intent: insert_bet_amount
+  reload_context:
+    type: bool
+    initial_value: false
+    mappings:
+    - type: custom
 responses:
   utter_greet:
   - text: Hey, this is BetBot! How can I help you?
@@ -295,8 +301,6 @@ responses:
   - text: what is your prediction on {event}?
   - text: How do you think will end?
   - text: On whom do you want to bet?
-  utter_bets_summary:
-  - text: 'Your current bets: {bets}'
   utter_ask_bet_amount:
   - text: How much do you want to bet?
   - text: How much you put?
@@ -307,25 +311,39 @@ responses:
   - text: 'These are the sports available: football, basketball and tennis.'
   - text: 'The sports you can play on are: football, basketball and tennis.'
   - text: 'You can choose from these sports: football, basketball, tennis.'
+  utter_ask_new_help:
+  - text: How can I help you now?
+  - text: Can I assist you with something else?
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+  checkpoints:
+  - play_single
+  - play_multiple
 actions:
-- utter_continue_betting
-- action_fetch_odds
-- utter_ask_outcome
-- utter_ask_bet_amount
-- utter_ask_sport
-- action_set_play
-- utter_bets_summary
-- utter_greet
-- utter_ask_event
-- action_bet
-- action_fetch_events
-- utter_list_sports
-- action_auth_user
-- action_logout_user
+- utter_ask_invoice
 - action_refresh_balance
+- utter_ask_reload_method
+- action_activate_reload_context
+- utter_ask_reload_amount
+- action_deactivate_reload_context
+- utter_ask_again_reload_amount
+- utter_ask_info_account
 - action_check_amount
+- utter_ask_confirm_amount
+- action_auth_user
+- utter_ask_registration
+- utter_ask_outcome
+- action_bet
+- action_set_play
+- utter_ask_bet_amount
+- utter_ask_event
+- utter_ask_choice
+- utter_confirm_single
+- utter_continue_betting
+- utter_goodbye
+- action_logout_user
+- action_fetch_events
 - action_set_single_play
+- action_fetch_odds
 - action_check_ticket

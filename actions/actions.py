@@ -383,3 +383,51 @@ class ActionCheckTicket(Action):
             dispatcher.utter_message("Ticket not found")
 
         return []
+    
+class ActionActivateReloadContext(Action):
+
+    def name(self) -> Text:
+        return "action_activate_reload_context"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        reload_context = tracker.get_slot("reload_context")
+
+        return[SlotSet("reload_context", True)]
+    
+class ActionDeactivateReloadContext(Action):
+
+    def name(self) -> Text:
+        return "action_deactivate_reload_context"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        reload_context = tracker.get_slot("reload_context")
+
+        return[SlotSet("reload_context", False)]
+    
+class ActionSetBetInProgress(Action):
+
+    def name(self) -> Text:
+        return "action_set_bet_in_progress"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        return[SlotSet("bet_in_progress", True)]
+    
+class ActionRemoveBetInProgress(Action):
+
+    def name(self) -> Text:
+        return "action_remove_bet_in_progress"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        return[SlotSet("bet_in_progress", False)]

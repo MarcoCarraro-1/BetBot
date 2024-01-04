@@ -58,7 +58,7 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: user ask to login after greet
   steps:
@@ -92,16 +92,24 @@ stories:
   - intent: select_event
     entities:
     - event: 'Djokovic-Nadal'
+  - action: action_fetch_odds
   - action: utter_ask_outcome
   - intent: select_outcome
     entities:
     - outcome: 'home'
   - action: action_bet
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
     - bet_amount: 10
   - action: action_set_play
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
 
 
 - story: out of scope
@@ -150,8 +158,11 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
 
 
@@ -169,7 +180,7 @@ stories:
   - action: action_reg_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: show_username
   - action: utter_show_username
   - action: utter_ask_info_account
@@ -223,7 +234,7 @@ stories:
   - slot_was_set:
     - authenticated: true
   #- intent: affirm
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: payment_method
   - action: utter_show_payment_method
   - action: utter_ask_info_account
@@ -246,7 +257,7 @@ stories:
   - slot_was_set:
     - authenticated: true
   #- intent: affirm
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
   - intent: payment_method
   - action: utter_show_payment_method
   - action: utter_ask_info_account
@@ -293,6 +304,9 @@ stories:
   - action: utter_show_username
   - action: utter_ask_info_account
   - intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
 
 - story: non auth registered user asks for username
@@ -309,7 +323,7 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: non auth non registered user asks for username
   steps:
@@ -325,7 +339,7 @@ stories:
   - action: action_reg_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: user ask registration after ask account exist
   steps:
@@ -343,7 +357,7 @@ stories:
   - action: action_reg_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: auth user asks for balance
   steps:
@@ -367,7 +381,7 @@ stories:
   - action: action_auth_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: non auth non registered user asks for balance
   steps:
@@ -383,7 +397,7 @@ stories:
   - action: action_reg_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: new user wants to register
   steps:
@@ -397,7 +411,7 @@ stories:
   - action: action_reg_user
   - slot_was_set:
     - authenticated: true
-  - action: utter_ask_info_account
+  - action: utter_ask_new_help
 
 - story: user ask for weekly report
   steps:
@@ -490,6 +504,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -507,6 +524,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '15'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: non auth user ask for reload
@@ -523,6 +543,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -542,6 +565,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but wrong amount
@@ -549,6 +575,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -573,6 +602,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload and change his mind
@@ -580,6 +612,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -608,6 +643,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but deny method
@@ -615,6 +653,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -634,6 +675,9 @@ stories:
   - action: action_refresh_balance
   - slot_was_set:
     - reload_amount: '10'
+  - action: action_deactivate_reload_context
+  - slot_was_set:
+    - reload_context: false
   - action: utter_ask_info_account
 
 - story: auth user ask for reload but deny method and deny continue
@@ -641,6 +685,9 @@ stories:
   - intent: reload_account
   - slot_was_set:
     - authenticated: true
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
   - action: utter_ask_reload_amount
   - intent: insert_reload_amount
     entities:
@@ -688,6 +735,7 @@ stories:
     entities:
     - event: 'Inter-Roma'
   - action: action_fetch_odds
+  - action: utter_ask_outcome
 
 - story: User Wants to Place Multiple Bets
   steps:
@@ -697,29 +745,50 @@ stories:
   - intent: select_event
     entities:
     - event: 'Djokovic-Nadal'
+  - action: action_fetch_odds
   - action: utter_ask_outcome
   - intent: select_outcome
     entities:
     - outcome: 'Home'
   - action: action_bet
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_continue_betting
   - intent: affirm
   - action: utter_ask_event
   - intent: select_event
     entities:
     - event: 'Djokovic-Nadal'
+  - action: action_fetch_odds
   - action: utter_ask_outcome
   - intent: select_outcome
     entities:
     - outcome: 'Home'
   - action: action_bet
+  - action: action_set_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: true
   - action: utter_continue_betting
   - intent: deny
-
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login
+    entities:
+    - username: decebal 
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
   - action: utter_ask_bet_amount
   - intent: insert_bet_amount
     entities:
     - bet_amount: 10
   - action: action_set_play
-  - action: utter_ask_info_account
+  - action: action_remove_bet_in_progress
+  - slot_was_set:
+    - bet_in_progress: false
+  - action: utter_ask_new_help
 
