@@ -1,0 +1,65 @@
+[
+  {
+    "text": "my username is Decebal99",
+    "entities": [
+      {
+        "text": "my username is Decebal99",
+        "start": 15,
+        "end": 24,
+        "entity": "username",
+        "value": "Decebal99"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "refill 15 euros",
+    "entities": [
+      {
+        "start": 7,
+        "end": 9,
+        "value": "15",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "my username is Marco99",
+    "entities": [
+      {
+        "text": "my username is Marco99",
+        "start": 15,
+        "end": 22,
+        "entity": "username",
+        "value": "Marco99"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "my ticket number is 132465",
+    "entities": [
+      {
+        "start": 20,
+        "end": 26,
+        "value": "132465",
+        "entity": "ticket_id"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "my username is BettingFan00",
+    "entities": [
+      {
+        "text": "my username is BettingFan00",
+        "start": 15,
+        "end": 27,
+        "entity": "username",
+        "value": "BettingFan00"
+      }
+    ],
+    "predicted_entities": []
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "ticket_id": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 14,
+    "confused_with": {}
+  },
+  "bet_amount": {
+    "precision": 0.7058823529411765,
+    "recall": 0.8,
+    "f1-score": 0.7500000000000001,
+    "support": 15,
+    "confused_with": {
+      "reload_amount": 3
+    }
+  },
+  "reload_amount": {
+    "precision": 0.875,
+    "recall": 0.8076923076923077,
+    "f1-score": 0.8400000000000001,
+    "support": 26,
+    "confused_with": {
+      "bet_amount": 5
+    }
+  },
+  "sport": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 21,
+    "confused_with": {}
+  },
+  "username": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 21,
+    "confused_with": {}
+  },
+  "outcome": {
+    "precision": 0.9375,
+    "recall": 0.9375,
+    "f1-score": 0.9375,
+    "support": 16,
+    "confused_with": {}
+  },
+  "event": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 17,
+    "confused_with": {}
+  },
+  "micro avg": {
+    "precision": 0.9307692307692308,
+    "recall": 0.9307692307692308,
+    "f1-score": 0.9307692307692308,
+    "support": 130
+  },
+  "macro avg": {
+    "precision": 0.9311974789915967,
+    "recall": 0.9350274725274724,
+    "f1-score": 0.9325,
+    "support": 130
+  },
+  "weighted avg": {
+    "precision": 0.9333710407239819,
+    "recall": 0.9307692307692308,
+    "f1-score": 0.9314615384615385,
+    "support": 130
+  },
+  "accuracy": 0.9936507936507937
+}

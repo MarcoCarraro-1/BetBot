@@ -1,0 +1,196 @@
+[
+  {
+    "text": "15 euros",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "15",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "bet_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.49411301610406055,
+        "value": "15",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "10 please",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "10",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "bet_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.5277655658526588,
+        "value": "10",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "20",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "20",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "bet_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.5015952394913741,
+        "value": "20",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "5",
+    "entities": [
+      {
+        "start": 0,
+        "end": 1,
+        "value": "5",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "bet_amount",
+        "start": 0,
+        "end": 1,
+        "confidence_entity": 0.474365620860842,
+        "value": "5",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "10 euros",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "10",
+        "entity": "reload_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "bet_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.5237562463187508,
+        "value": "10",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "away will win",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "value": "away",
+        "entity": "outcome"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "[home] will win",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "outcome",
+        "start": 1,
+        "end": 5,
+        "confidence_entity": 0.6382574772307861,
+        "value": "home",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "10",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "10",
+        "entity": "bet_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "reload_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.5053122855483226,
+        "value": "10",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "15",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "15",
+        "entity": "bet_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "reload_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.4765161603471596,
+        "value": "15",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "25",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "25",
+        "entity": "bet_amount"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "reload_amount",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.4407777820888279,
+        "value": "25",
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  }
+]

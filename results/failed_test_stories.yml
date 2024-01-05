@@ -1,0 +1,126 @@
+version: "3.1"
+stories:
+- story: user login, payment method and reload account test (./tests/test_stories.yml)
+  steps:
+  - intent: login
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login  # predicted: insert_username_registration: my username is [Decebal99](username)
+    entities:
+    - username: Decebal99
+  - slot_was_set:
+    - username: Decebal99
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - intent: payment_method
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
+  - intent: reload_account  # predicted: current_balance: i want to reload my balance
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
+  - action: utter_ask_reload_amount
+  - intent: insert_reload_amount
+    entities:
+    - reload_amount: '15'
+  - slot_was_set:
+    - reload_amount: '15'
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - intent: affirm
+  - action: utter_ask_reload_method
+  - intent: affirm
+  - action: utter_ask_invoice
+  - intent: deny
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_context: false
+  - action: utter_ask_info_account  # predicted: action_deactivate_reload_context
+  - action: action_listen  # predicted: action_default_fallback
+- story: non auth user ask for check ticket (./tests/test_stories.yml)
+  steps:
+  - intent: check_ticket
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
+  - intent: affirm
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login  # predicted: insert_username_registration: my username is [Marco99](username)
+    entities:
+    - username: Marco99
+  - slot_was_set:
+    - username: Marco99
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - user: |-
+      i want to check a ticket
+  - action: utter_ask_ticket_id  # predicted: action_default_fallback
+  - action: action_listen  # predicted: action_default_fallback
+  - intent: insert_ticket_id
+    entities:
+    - ticket_id: '132465'
+  - slot_was_set:
+    - ticket_id: '132465'
+  - action: action_check_ticket
+  - action: utter_ask_info_account
+  - action: action_listen  # predicted: action_default_fallback
+- story: auth user ask for crediting method and username and then logout (./tests/test_stories.yml)
+  steps:
+  - intent: crediting_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_crediting_method
+  - action: utter_ask_info_account
+  - intent: show_username
+  - action: utter_show_username
+  - action: utter_ask_info_account
+  - action: action_listen  # predicted: action_default_fallback
+  - intent: logout
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_logout
+  - intent: affirm
+  - action: action_logout_user
+  - slot_was_set:
+    - authenticated: false
+- story: user login and ask for actual balance and periodic report (./tests/test_stories.yml)
+  steps:
+  - intent: login
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - intent: affirm
+  - action: utter_ask_login
+  - intent: insert_username_login  # predicted: insert_username_login: my username is BettingFan00
+    entities: []
+  - slot_was_set:
+    - username: BettingFan00
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - intent: current_balance
+  - action: utter_show_balance
+  - action: utter_ask_info_account
+  - action: action_listen  # predicted: action_default_fallback
+  - intent: weekly_report
+  - action: utter_show_weekly_report
+  - action: utter_ask_info_account
+  - action: action_listen  # predicted: action_default_fallback
+  - intent: monthly report  # predicted: monthly_report: and what is my monthly report?
+  - action: utter_show_monthly_report  # predicted: action_default_fallback
+  - action: utter_ask_info_account  # predicted: action_default_fallback
+  - action: action_listen  # predicted: action_default_fallback
+  - intent: goodbye
+  - action: utter_goodbye

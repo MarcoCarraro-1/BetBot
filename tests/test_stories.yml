@@ -1,91 +1,155 @@
 #### This file contains tests to evaluate that your bot behaves as expected.
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
-
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
 
-- story: happy path 2
+- story: user login, payment method and reload account test
   steps:
   - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
+      i want to login
+    intent: login
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
-
-- story: sad path 1
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: single_play
-  - action: utter_confirm_single
-  - action: utter_did_that_help
-  - user: |
-      yes
+      yes 
     intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
+  - action: utter_ask_login
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      my username is [Decebal99]{"entity": "username"}
+    intent: insert_username_login
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - user:
+      can i see my payment method?
+    intent: payment_method
+  - action: utter_show_payment_method
+  - action: utter_ask_info_account
   - user: |
-      not good
-    intent: single_play
-  - action: utter_confirm_single
-  - action: utter_did_that_help
+      i want to reload my balance
+    intent: reload_account
+  - action: action_activate_reload_context
+  - slot_was_set:
+    - reload_context: true
+  - action: utter_ask_reload_amount
   - user: |
-      not really
+      refill [15]{"entity": "reload_amount"} euros
+    intent: insert_reload_amount
+  - action: action_check_amount
+  - slot_was_set:
+    - valid_amount: true
+  - action: utter_ask_confirm_amount
+  - user: |
+      yes please
+    intent: affirm
+  - action: utter_ask_reload_method
+  - user: |
+      yes!
+    intent: affirm
+  - action: utter_ask_invoice
+  - user: |
+      no thanks
     intent: deny
-  - action: utter_goodbye
+  - action: action_refresh_balance
+  - slot_was_set:
+    - reload_context: false
+  - action: utter_ask_info_account
 
-- story: sad path 3
+- story: non auth user ask for check ticket
   steps:
   - user: |
-      hi
-    intent: greet
-  - action: utter_greet
+      can i check a ticket?
+    intent: check_ticket
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_not_logged
   - user: |
-      very terrible
-    intent: single_play
-  - action: utter_confirm_single
-  - action: utter_did_that_help
+      yes please
+    intent: affirm
+  - action: utter_ask_exist_account
   - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+      yes!
+    intent: affirm
+  - action: utter_ask_login
+  - user: |
+      my username is [Marco99]{"entity":"username"}
+    intent: insert_username_login
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - user: |
+      i want to check a ticket
+  - action: utter_ask_ticket_id
+  - user: |
+      my ticket number is [132465]{"entity":"ticket_id"}
+    intent: insert_ticket_id
+  - action: action_check_ticket
+  - action: utter_ask_info_account
 
-- story: say goodbye
+- story: auth user ask for crediting method and username and then logout
   steps:
   - user: |
-      bye-bye!
+      can i check my crediting method?
+    intent: crediting_method
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_show_crediting_method
+  - action: utter_ask_info_account
+  - user: |
+      what is my username?
+    intent: show_username
+  - action: utter_show_username
+  - action: utter_ask_info_account
+  - user: |
+      Ok, can i logout now?
+    intent: logout
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_logout
+  - user: |
+      yes please
+    intent: affirm
+  - action: action_logout_user
+  - slot_was_set:
+    - authenticated: false
+
+- story: user login and ask for actual balance and periodic report
+  steps:
+  - user: |
+      hello, i want to login
+    intent: login
+  - slot_was_set:
+    - authenticated: false
+  - action: utter_ask_exist_account
+  - user: |
+      yes!
+    intent: affirm
+  - action: utter_ask_login
+  - user: |
+      my username is [BettingFan00]{"entity": "username"}
+    intent: insert_username_login
+  - action: action_auth_user
+  - slot_was_set:
+    - authenticated: true
+  - action: utter_ask_new_help
+  - user: |
+      how much money do i have?
+    intent: current_balance
+  - action: utter_show_balance
+  - action: utter_ask_info_account
+  - user: |
+      can i see my weekly report?
+    intent: weekly_report
+  - action: utter_show_weekly_report
+  - action: utter_ask_info_account
+  - user: |
+      and what is my monthly report?
+    intent: monthly report
+  - action: utter_show_monthly_report
+  - action: utter_ask_info_account
+  - user: |
+      thank you, goodbye!
     intent: goodbye
   - action: utter_goodbye
-
-- story: bot challenge
-  steps:
-  - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot

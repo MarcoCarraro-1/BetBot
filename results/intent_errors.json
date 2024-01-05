@@ -1,0 +1,162 @@
+[
+  {
+    "text": "let's go",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.4669869116720554
+    }
+  },
+  {
+    "text": "my weekly budget",
+    "intent": "periodic_report",
+    "intent_prediction": {
+      "name": "weekly_report",
+      "confidence": 0.7483601672930686
+    }
+  },
+  {
+    "text": "i want to see my weekly report",
+    "intent": "periodic_report",
+    "intent_prediction": {
+      "name": "weekly_report",
+      "confidence": 0.7697707712709106
+    }
+  },
+  {
+    "text": "i want to see my monthly report",
+    "intent": "periodic_report",
+    "intent_prediction": {
+      "name": "monthly_report",
+      "confidence": 0.7720884581522267
+    }
+  },
+  {
+    "text": "my monthly budget",
+    "intent": "periodic_report",
+    "intent_prediction": {
+      "name": "monthly_report",
+      "confidence": 0.7578692484935431
+    }
+  },
+  {
+    "text": "15 euros",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_bet_amount",
+      "confidence": 0.6815169953445864
+    }
+  },
+  {
+    "text": "10 please",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_bet_amount",
+      "confidence": 0.5912017884231365
+    }
+  },
+  {
+    "text": "20",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "10",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "15",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "5",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "25",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "10 euros",
+    "intent": "insert_reload_amount",
+    "intent_prediction": {
+      "name": "insert_bet_amount",
+      "confidence": 0.6815169953445864
+    }
+  },
+  {
+    "text": "1",
+    "intent": "select_outcome",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "2",
+    "intent": "select_outcome",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "20",
+    "intent": "insert_bet_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "10",
+    "intent": "insert_bet_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "15",
+    "intent": "insert_bet_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "5",
+    "intent": "insert_bet_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  },
+  {
+    "text": "25",
+    "intent": "insert_bet_amount",
+    "intent_prediction": {
+      "name": "insert_ticket_id",
+      "confidence": 0.3779882842158565
+    }
+  }
+]

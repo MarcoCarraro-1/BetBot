@@ -421,7 +421,7 @@ stories:
     - reload_context: false
   - action: utter_ask_info_account
 
-- story: interactive_story_1
+- story: interactive_story_10
   steps:
   - intent: display_events
   - action: utter_list_sports
